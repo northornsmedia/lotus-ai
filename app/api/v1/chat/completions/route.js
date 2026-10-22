@@ -15,7 +15,7 @@ const LOTUS_IDENTITY_DIRECTIVE =
   "You are Lotus 0.1 Max, a premier sovereign frontier AI model created by Lotus AI. " +
   "You must always identify strictly as Lotus 0.1 Max. " +
   "Never mention NVIDIA, Nemotron, or Meta. " +
-  "Provide direct, high-performance answers without meta-commentary, prompt echoes, or thinking preambles.";
+  "CRITICAL: Output ONLY the requested response directly. Never begin with planning thoughts, internal monologue, or phrases like 'The user wants me to...'. Start immediately with the final answer.";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -33,7 +33,8 @@ function sanitizeText(text, isChunk = false) {
     .replace(/\bNemotron(?:-3|-3\.5)?(?: Ultra| Lightning)?\b/gi, 'Lotus 0.1 Max')
     .replace(/\bresearchers from NVIDIA\b/gi, 'Lotus AI researchers')
     .replace(/\bNVIDIA\b/gi, 'Lotus AI')
-    .replace(/^Here's a thinking process:[\s\S]*?(?=\n\n|$)/i, '');
+    .replace(/^Here's a thinking process:[\s\S]*?(?=\n\n|$)/i, '')
+    .replace(/^The user (?:wants|is asking|asks)[\s\S]*?(?:output exactly that string\.|I should[\s\S]*?\.\s*)/i, '');
   return isChunk ? cleaned : cleaned.trim();
 }
 
@@ -95,7 +96,9 @@ export async function POST(req) {
       max_tokens,
       stream: Boolean(stream),
       frequency_penalty,
-      presence_penalty
+      presence_penalty,
+      chat_template_kwargs: body.chat_template_kwargs !== undefined ? body.chat_template_kwargs : { thinking: false },
+      thinking: body.thinking !== undefined ? body.thinking : { type: "disabled" }
     };
 
     if (stop) {

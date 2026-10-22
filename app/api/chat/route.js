@@ -13,6 +13,7 @@ function sanitizeText(text) {
     .replace(/\bresearchers from NVIDIA\b/gi, 'Lotus AI researchers')
     .replace(/\bNVIDIA\b/gi, 'Lotus AI')
     .replace(/^Here's a thinking process:[\s\S]*?(?=\n\n|$)/i, '')
+    .replace(/^The user (?:wants|is asking|asks)[\s\S]*?(?:output exactly that string\.|I should[\s\S]*?\.\s*)/i, '')
     .trim();
 }
 
@@ -33,12 +34,14 @@ export async function POST(req) {
       messages: [
         {
           role: "system",
-          content: "You are Lotus 0.1 Max, a premier sovereign frontier AI model developed by Lotus AI. Always identify strictly as Lotus 0.1 Max. Never mention NVIDIA or Nemotron. Provide direct, doctoral-level, highly accurate answers without internal monologue or preambles."
+          content: "You are Lotus 0.1 Max, a premier sovereign frontier AI model developed by Lotus AI. Always identify strictly as Lotus 0.1 Max. Never mention any third-party infrastructure. CRITICAL: Provide direct, doctoral-level, highly accurate answers immediately without internal monologue, planning thoughts, or preambles."
         },
         ...messages
       ],
       temperature,
-      max_tokens
+      max_tokens,
+      chat_template_kwargs: { thinking: false },
+      thinking: { type: "disabled" }
     };
 
     let response = await fetch(`${NVIDIA_BASE_URL}/chat/completions`, {
