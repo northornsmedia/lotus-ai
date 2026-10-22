@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 const PRESET_PROMPTS = [
   {
@@ -465,12 +466,14 @@ export default function Home() {
       <footer className="footer">
         <div className="container">
           <div className="footer-links">
-            <a href="https://lotus-ai.vercel.app">lotus-ai.vercel.app</a>
-            <a href="https://openrouter.ai">OpenRouter</a>
-            <a href="https://build.nvidia.com/models">NVIDIA NIM</a>
-            <a href="https://github.com">GitHub</a>
+            <Link href="/">Home</Link>
+            <Link href="/privacy">Privacy Policy</Link>
+            <Link href="/terms">Terms of Service</Link>
+            <a href="https://openrouter.ai" target="_blank" rel="noreferrer">OpenRouter</a>
+            <a href="https://build.nvidia.com/models" target="_blank" rel="noreferrer">NVIDIA NIM</a>
+            <a href="https://github.com/northornsmedia/lotus-ai" target="_blank" rel="noreferrer">GitHub</a>
           </div>
-          <p>&copy; {new Date().getFullYear()} Lotus AI &bull; Lotus 0.1 Max &bull; Hosted on Vercel</p>
+          <p>&copy; {new Date().getFullYear()} Lotus AI &bull; Lotus 0.1 Max &bull; <a href="https://lotus-maxl.vercel.app" style={{ color: 'inherit', textDecoration: 'none' }}>lotus-maxl.vercel.app</a></p>
         </div>
       </footer>
     </div>
