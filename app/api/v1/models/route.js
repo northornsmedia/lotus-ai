@@ -18,9 +18,11 @@ export async function GET() {
         id: "lotus-ai/lotus-0.1-max",
         object: "model",
         created: 1729584000,
-        owned_by: "lotus-ai",
+        owned_by: "amanxridex",
+        developer: "AMANXRIDEX",
+        github: "https://github.com/amanxridex",
         name: "Lotus 0.1 Max",
-        description: "Frontier reasoning model built on sovereign high-throughput neural cluster infrastructure. 3.2M context window, low-latency streaming, zero data retention.",
+        description: "Frontier reasoning model developed sovereignly by AMANXRIDEX at Lotus Labs. 3.2M context window, sub-140ms TTFT, zero data retention.",
         context_length: 3200000,
         max_completion_tokens: 8192,
         pricing: {

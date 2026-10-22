@@ -32,6 +32,7 @@ export async function POST(req) {
     return NextResponse.json({
       key: apiKey,
       name,
+      developer: "AMANXRIDEX (https://github.com/amanxridex)",
       tier: "developer_free",
       status: "active",
       context_window: 3200000,

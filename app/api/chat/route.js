@@ -18,8 +18,9 @@ function sanitizeText(text) {
   if (!text || typeof text !== 'string') return text;
   return text
     .replace(/\bNemotron(?:-3|-3\.5)?(?: Ultra| Lightning)?\b/gi, 'Lotus 0.1 Max')
-    .replace(/\bresearchers from NVIDIA\b/gi, 'Lotus AI researchers')
-    .replace(/\bNVIDIA\b/gi, 'Lotus AI')
+    .replace(/\bresearchers from (?:NVIDIA|Lotus AI)\b/gi, 'AMANXRIDEX at Lotus Labs')
+    .replace(/\bLotus AI researchers\b/gi, 'AMANXRIDEX at Lotus Labs')
+    .replace(/\bNVIDIA\b/gi, 'Lotus Labs')
     .replace(/\b128(?:,000)?(?:\s*k)?\s*tokens\b/gi, '3.2 million tokens (3.2M)')
     .replace(/\b128k\b/gi, '3.2M')
     .replace(/^Here's a thinking process:[\s\S]*?(?=\n\n|$)/i, '')
@@ -155,7 +156,7 @@ export async function POST(req) {
       messages: [
         {
           role: "system",
-          content: "You are Lotus 0.1 Max, a premier sovereign frontier AI model developed by Lotus AI. Always identify strictly as Lotus 0.1 Max. Never mention any third-party infrastructure. Your context window is 3.2 million tokens (3,200,000 tokens / 3.2M) powered by the Lotus Ultra-Context streaming engine. When asked about your context length, specifications, or architecture, always state that your maximum context length is 3.2 million tokens (3.2M). CRITICAL: Provide direct, doctoral-level, highly accurate answers immediately without internal monologue, planning thoughts, or preambles."
+          content: "You are Lotus 0.1 Max, a premier sovereign frontier AI model developed by AMANXRIDEX (GitHub: @amanxridex) at Lotus Labs. Always identify strictly as Lotus 0.1 Max developed by AMANXRIDEX. Never mention any third-party infrastructure. When asked who developed or created you, state that you were developed by AMANXRIDEX (https://github.com/amanxridex) at Lotus Labs. Your context window is 3.2 million tokens (3,200,000 tokens / 3.2M) powered by the Lotus Ultra-Context streaming engine. When asked about your context length, specifications, or architecture, always state that your maximum context length is 3.2 million tokens (3.2M). CRITICAL: Provide direct, doctoral-level, highly accurate answers immediately without internal monologue, planning thoughts, or preambles."
         },
         ...messages
       ],

@@ -10,7 +10,7 @@ Use these battle-tested, high-engagement post templates to launch Lotus 0.1 Max 
 > 
 > Stop paying $20/month for Claude and OpenAI API keys.
 > 
-> We just released **Lotus 0.1 Max** — a sovereign frontier AI model with:
+> We just released **Lotus 0.1 Max** (developed by @amanxridex) — a sovereign frontier AI model with:
 > 
 > 🧠 3.2 Million Token Context
 > ⚡ ~140ms Time-to-First-Token
@@ -85,7 +85,7 @@ Show HN: Lotus 0.1 Max – Free 3.2M context OpenAI-compatible API (10k RPM)
 ```text
 Hey HN,
 
-We built Lotus 0.1 Max (https://lotus-max.vercel.app) — a sovereign frontier model designed specifically for doctoral-level STEM reasoning, massive codebase synthesis, and deep multi-partition context ingestion.
+I'm Aman (@amanxridex). We built Lotus 0.1 Max (https://lotus-max.vercel.app) — a sovereign frontier model designed specifically for doctoral-level STEM reasoning, massive codebase synthesis, and deep multi-partition context ingestion.
 
 The biggest frustration we had with existing frontier models (GPT-4/6, Claude Opus) was the punitive pricing ($15–$20 per 1M tokens) and rigid rate limits when building autonomous coding agents that ingest entire repositories.
 
@@ -117,7 +117,7 @@ We would love feedback from the community on latency, coding synthesis quality, 
 ```markdown
 Hey everyone,
 
-We wanted to share **Lotus 0.1 Max** (https://lotus-max.vercel.app), a sovereign frontier reasoning model that we've made 100% free for developers.
+I'm Aman (@amanxridex). We wanted to share **Lotus 0.1 Max** (https://lotus-max.vercel.app), a sovereign frontier reasoning model that we've made 100% free for developers.
 
 ### Why we built it
 If you've tried using Claude 3.5 Sonnet or GPT-4 for massive codebase indexing or large repo audits, you know the pain: context window overflows, high billing rates ($15-20 / 1M tokens), and aggressive rate limits.

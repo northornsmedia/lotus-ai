@@ -21,9 +21,12 @@ export const metadata = {
     'open source ai',
     'stem reasoning ai'
   ],
-  authors: [{ name: 'Lotus Labs', url: 'https://lotus-max.vercel.app' }],
-  creator: 'Lotus Labs',
-  publisher: 'Lotus Labs',
+  authors: [
+    { name: 'AMANXRIDEX', url: 'https://github.com/amanxridex' },
+    { name: 'Lotus Labs', url: 'https://lotus-max.vercel.app' }
+  ],
+  creator: 'AMANXRIDEX (@amanxridex)',
+  publisher: 'AMANXRIDEX • Lotus Labs',
   robots: {
     index: true,
     follow: true,

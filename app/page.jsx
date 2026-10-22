@@ -26,7 +26,7 @@ export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'Hello. I am Lotus 0.1 Max, a sovereign frontier reasoning intelligence built by Lotus AI and available on OpenRouter. How can I assist with your engineering, mathematical, or systems architecture challenge today?'
+      content: 'Hello. I am Lotus 0.1 Max, a sovereign frontier reasoning intelligence developed by AMANXRIDEX at Lotus Labs. How can I assist with your engineering, mathematical, or systems architecture challenge today?'
     }
   ]);
   const [input, setInput] = useState('');
@@ -276,7 +276,8 @@ for chunk in stream:
             <li><a href="#benchmarks">Benchmarks</a></li>
             <li><a href="#architecture">Architecture</a></li>
             <li><a href="#api">API Docs</a></li>
-            <li><a href="https://openrouter.ai" target="_blank" rel="noreferrer">OpenRouter</a></li>
+            <li><a href="https://github.com/amanxridex" target="_blank" rel="noreferrer" style={{ color: '#00FF88' }}>@amanxridex</a></li>
+            <li><a href="https://github.com/northornsmedia/lotus-ai" target="_blank" rel="noreferrer">GitHub</a></li>
           </ul>
 
           <div className="nav-actions">
@@ -350,7 +351,7 @@ for chunk in stream:
 
           <div className="pill-badge">
             <span className="live-dot"></span>
-            <span>Lotus 0.1 Max &bull; 3.2M Context &bull; Free Developer API</span>
+            <span>Developed by <a href="https://github.com/amanxridex" target="_blank" rel="noreferrer" style={{ color: '#00FF88', fontWeight: 600, textDecoration: 'none' }}>AMANXRIDEX</a> &bull; 3.2M Context &bull; Free Developer API</span>
           </div>
 
           <h1 className="gradient-title gradient-text">
@@ -730,10 +731,10 @@ for chunk in stream:
             <Link href="/privacy">Privacy Policy</Link>
             <Link href="/terms">Terms of Service</Link>
             <Link href="/api/v1/models">Models API</Link>
-            <a href="https://openrouter.ai" target="_blank" rel="noreferrer">OpenRouter</a>
+            <a href="https://github.com/amanxridex" target="_blank" rel="noreferrer" style={{ color: '#00FF88' }}>Developer (@amanxridex)</a>
             <a href="https://github.com/northornsmedia/lotus-ai" target="_blank" rel="noreferrer">GitHub</a>
           </div>
-          <p>&copy; {new Date().getFullYear()} Lotus AI &bull; Lotus 0.1 Max &bull; <a href="https://lotus-max.vercel.app" style={{ color: 'inherit', textDecoration: 'none' }}>lotus-max.vercel.app</a></p>
+          <p>&copy; {new Date().getFullYear()} Lotus Labs &bull; Developed by <a href="https://github.com/amanxridex" target="_blank" rel="noreferrer" style={{ color: '#00FF88', textDecoration: 'none', fontWeight: 600 }}>AMANXRIDEX</a> &bull; Lotus 0.1 Max &bull; <a href="https://lotus-max.vercel.app" style={{ color: 'inherit', textDecoration: 'none' }}>lotus-max.vercel.app</a></p>
         </div>
       </footer>
     </div>

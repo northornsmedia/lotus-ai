@@ -7,7 +7,8 @@
 <h1 align="center">Lotus 0.1 Max</h1>
 
 <p align="center">
-  <strong>Sovereign Frontier Artificial Intelligence by Lotus Labs</strong><br />
+  <strong>Sovereign Frontier Artificial Intelligence</strong><br />
+  Developed by <strong><a href="https://github.com/amanxridex">AMANXRIDEX</a></strong> (<a href="https://github.com/amanxridex">@amanxridex</a>) • <strong>Lotus Labs</strong><br />
   Engineered for doctoral-level STEM reasoning, code architecture synthesis, and continuous 3.2M token context ingestion via an ultra-low latency, OpenAI-compatible gateway.
 </p>
 
@@ -154,7 +155,7 @@ print(response.content)
 | Specification | Details |
 | :--- | :--- |
 | **Model ID** | `lotus-ai/lotus-0.1-max` |
-| **Developer / Creator** | **Lotus Labs** |
+| **Developer / Creator** | **[AMANXRIDEX](https://github.com/amanxridex)** (@amanxridex) • Lotus Labs |
 | **Context Window** | **3,200,000 tokens (3.2M)** with automated multi-partition ingestion |
 | **Max Completion** | 8,192 tokens per request |
 | **Architecture** | 550B Sovereign Tensor Foundation |
@@ -543,5 +544,6 @@ Open [http://localhost:3000](http://localhost:3000) to view the web console and 
 
 ## 🛡️ License & Rights
 
-Developed and maintained sovereignly by **Lotus Labs**.  
+Developed and maintained sovereignly by **[AMANXRIDEX](https://github.com/amanxridex)** (<a href="https://github.com/amanxridex">@amanxridex</a>) at **Lotus Labs**.  
+Official GitHub: **[https://github.com/amanxridex](https://github.com/amanxridex)**  
 All rights reserved © 2026 Lotus Labs.
