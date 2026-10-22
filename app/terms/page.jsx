@@ -46,7 +46,7 @@ export default function TermsAndConditions() {
           <section>
             <h2 style={{ color: '#FFF', fontSize: '1.2rem', marginBottom: '0.5rem' }}>1. Acceptance of Terms</h2>
             <p>
-              By accessing or using the Lotus 0.1 Max website (<strong>lotus-maxl.vercel.app</strong>), our direct API endpoints, 
+              By accessing or using the Lotus 0.1 Max website (<strong>lotus-max.vercel.app</strong>), our direct API endpoints, 
               or third-party aggregators including OpenRouter, you agree to be bound by these Terms and Conditions. 
               If you do not agree with any provision of these Terms, you must discontinue use immediately.
             </p>
@@ -116,7 +116,7 @@ export default function TermsAndConditions() {
             <h2 style={{ color: '#FFF', fontSize: '1.2rem', marginBottom: '0.5rem' }}>8. Contact Information</h2>
             <p>For questions or enterprise custom agreements, reach our legal team at:</p>
             <div style={{ marginTop: '0.75rem', fontFamily: 'var(--font-mono)', color: '#FFF' }}>
-              legal@lotus-maxl.vercel.app &bull; contact@lotus-ai.in
+              legal@lotus-max.vercel.app &bull; contact@lotus-ai.in
             </div>
           </section>
         </div>
@@ -131,7 +131,7 @@ export default function TermsAndConditions() {
             <Link href="/terms">Terms of Service</Link>
             <a href="https://openrouter.ai" target="_blank" rel="noreferrer">OpenRouter</a>
           </div>
-          <p>&copy; {new Date().getFullYear()} Lotus AI &bull; Lotus 0.1 Max &bull; lotus-maxl.vercel.app</p>
+          <p>&copy; {new Date().getFullYear()} Lotus AI &bull; Lotus 0.1 Max &bull; lotus-max.vercel.app</p>
         </div>
       </footer>
     </div>

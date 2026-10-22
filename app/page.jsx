@@ -473,7 +473,7 @@ export default function Home() {
             <a href="https://build.nvidia.com/models" target="_blank" rel="noreferrer">NVIDIA NIM</a>
             <a href="https://github.com/northornsmedia/lotus-ai" target="_blank" rel="noreferrer">GitHub</a>
           </div>
-          <p>&copy; {new Date().getFullYear()} Lotus AI &bull; Lotus 0.1 Max &bull; <a href="https://lotus-maxl.vercel.app" style={{ color: 'inherit', textDecoration: 'none' }}>lotus-maxl.vercel.app</a></p>
+          <p>&copy; {new Date().getFullYear()} Lotus AI &bull; Lotus 0.1 Max &bull; <a href="https://lotus-max.vercel.app" style={{ color: 'inherit', textDecoration: 'none' }}>lotus-max.vercel.app</a></p>
         </div>
       </footer>
     </div>

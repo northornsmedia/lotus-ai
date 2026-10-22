@@ -1,9 +1,9 @@
 {
   "provider_name": "Lotus AI",
-  "provider_website": "https://lotus-maxl.vercel.app",
-  "endpoint_base_url": "https://lotus-maxl.vercel.app/api",
-  "privacy_policy_url": "https://lotus-maxl.vercel.app/privacy",
-  "terms_url": "https://lotus-maxl.vercel.app/terms",
+  "provider_website": "https://lotus-max.vercel.app",
+  "endpoint_base_url": "https://lotus-max.vercel.app/api/v1",
+  "privacy_policy_url": "https://lotus-max.vercel.app/privacy",
+  "terms_url": "https://lotus-max.vercel.app/terms",
   "data_logging": "no-logging",
   "models": [
     {

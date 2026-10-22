@@ -106,7 +106,7 @@ export default function PrivacyPolicy() {
               Any changes to this policy will be posted on this page with an updated revision date. If you have questions regarding data privacy or security audits, contact us at:
             </p>
             <div style={{ marginTop: '0.75rem', fontFamily: 'var(--font-mono)', color: '#FFF' }}>
-              privacy@lotus-maxl.vercel.app &bull; security@lotus-ai.in
+              privacy@lotus-max.vercel.app &bull; security@lotus-ai.in
             </div>
           </section>
         </div>
@@ -121,7 +121,7 @@ export default function PrivacyPolicy() {
             <Link href="/terms">Terms of Service</Link>
             <a href="https://openrouter.ai" target="_blank" rel="noreferrer">OpenRouter</a>
           </div>
-          <p>&copy; {new Date().getFullYear()} Lotus AI &bull; Lotus 0.1 Max &bull; lotus-maxl.vercel.app</p>
+          <p>&copy; {new Date().getFullYear()} Lotus AI &bull; Lotus 0.1 Max &bull; lotus-max.vercel.app</p>
         </div>
       </footer>
     </div>
