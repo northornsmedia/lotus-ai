@@ -20,8 +20,8 @@ export async function GET() {
         created: 1729584000,
         owned_by: "lotus-ai",
         name: "Lotus 0.1 Max",
-        description: "Frontier reasoning model built on sovereign high-throughput neural cluster infrastructure. 131k context window, low-latency streaming, zero data retention.",
-        context_length: 131072,
+        description: "Frontier reasoning model built on sovereign high-throughput neural cluster infrastructure. 3.2M context window, low-latency streaming, zero data retention.",
+        context_length: 3200000,
         max_completion_tokens: 8192,
         pricing: {
           prompt: "0.00000035",
@@ -33,7 +33,7 @@ export async function GET() {
           instruct_type: "llama3"
         },
         top_provider: {
-          context_length: 131072,
+          context_length: 3200000,
           max_completion_tokens: 8192,
           is_moderated: false
         },

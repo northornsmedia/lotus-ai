@@ -47,8 +47,8 @@ MODEL_METADATA = {
             "created": 1729580000,
             "owned_by": "lotus-ai",
             "name": "Lotus 0.1 Max",
-            "description": "Frontier-class global model synthesized across NVIDIA NIM 550B Ultra & 30B Lightning reasoning infrastructure. Master-level performance in theoretical computer science, quantum computing, distributed systems, global macroeconomics, and biomedical engineering.",
-            "context_length": 131072,
+            "description": "Frontier-class global model synthesized across sovereign 550B Ultra reasoning infrastructure. Master-level performance in theoretical computer science, quantum computing, distributed systems, global macroeconomics, and biomedical engineering.",
+            "context_length": 3200000,
             "pricing": {
                 "prompt": "0.00000035",      # $0.35 per 1M prompt tokens
                 "completion": "0.00000075"   # $0.75 per 1M completion tokens

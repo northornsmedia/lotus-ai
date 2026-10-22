@@ -10,7 +10,7 @@
       "id": "lotus-ai/lotus-0.1-max",
       "name": "Lotus 0.1 Max",
       "description": "Frontier-class global model synthesized across sovereign 550B Ultra reasoning infrastructure. Master-level performance in theoretical computer science, quantum computing, distributed systems, global macroeconomics, and biomedical engineering.",
-      "context_length": 131072,
+      "context_length": 3200000,
       "max_completion_tokens": 8192,
       "pricing": {
         "prompt": "0.00000035",

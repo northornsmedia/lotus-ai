@@ -7,7 +7,7 @@ Lotus 0.1 Max is a premier global frontier artificial intelligence developed by 
 ## 🌐 Model Identity: Lotus 0.1 Max
 
 - **Model ID**: `lotus-ai/lotus-0.1-max`
-- **Context Length**: 131,072 tokens
+- **Context Length**: 3,200,000 tokens (3.2M)
 - **Max Completion**: 8,192 tokens
 - **Inference Infrastructure**: Dedicated Sovereign Neural Cluster
 - **Token Pricing**: $0.35/1M prompt • $0.75/1M completion

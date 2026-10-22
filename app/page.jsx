@@ -252,7 +252,7 @@ export default function Home() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <span className="live-dot"></span>
                 <span style={{ fontWeight: 600, color: '#FFF' }}>lotus-ai/lotus-0.1-max</span>
-                <span style={{ color: '#666', fontSize: '0.75rem' }}>• 131k Context • fp16</span>
+                <span style={{ color: '#666', fontSize: '0.75rem' }}>• 3.2M Context • fp16</span>
               </div>
               <div style={{ color: '#888', fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>
                 {latency ? `Latency: ${latency}ms` : 'Ready'}
@@ -364,7 +364,7 @@ export default function Home() {
                 <tr>
                   <td className="benchmark-highlight">Context Window</td>
                   <td>Effective Memory</td>
-                  <td><span className="benchmark-pill">131,072</span></td>
+                  <td><span className="benchmark-pill">3,200,000</span></td>
                   <td>128,000</td>
                   <td>200,000</td>
                   <td>1,000,000</td>
