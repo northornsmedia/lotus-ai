@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 490" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0f"/>
+      <stop offset="50%" stop-color="#12121a"/>
+      <stop offset="100%" stop-color="#0b0b12"/>
+    </linearGradient>
+
+    <!-- Card Glow -->
+    <filter id="lotusGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <!-- Lotus Bar Gradient -->
+    <linearGradient id="lotusBar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <!-- GPT-6 Astra Gradient -->
+    <linearGradient id="astraBar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+
+    <!-- Claude Opus 5.5 Gradient -->
+    <linearGradient id="claudeBar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fb923c"/>
+      <stop offset="100%" stop-color="#c2410c"/>
+    </linearGradient>
+
+    <!-- GPT-4 Argon Gradient -->
+    <linearGradient id="argonBar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#94a3b8"/>
+      <stop offset="100%" stop-color="#475569"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Canvas -->
+  <rect width="920" height="490" rx="16" fill="url(#bgGrad)" stroke="#27272a" stroke-width="1.5"/>
+
+  <!-- Top Header -->
+  <g transform="translate(40, 42)">
+    <circle cx="14" cy="14" r="14" fill="#fbbf24" fill-opacity="0.15"/>
+    <circle cx="14" cy="14" r="6" fill="#fbbf24"/>
+    <text x="38" y="20" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="-0.02em">Frontier STEM &amp; Reasoning Evaluation</text>
+    <text x="38" y="38" fill="#a1a1aa" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12">Standardized zero-shot and chain-of-thought evaluations across leading frontier models</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(490, 46)">
+    <!-- Lotus -->
+    <rect x="0" y="0" width="12" height="12" rx="3" fill="url(#lotusBar)"/>
+    <text x="18" y="10" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">Lotus 0.1 Max</text>
+
+    <!-- Astra -->
+    <rect x="115" y="0" width="12" height="12" rx="3" fill="url(#astraBar)"/>
+    <text x="133" y="10" fill="#93c5fd" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12">GPT-6 Astra</text>
+
+    <!-- Claude -->
+    <rect x="220" y="0" width="12" height="12" rx="3" fill="url(#claudeBar)"/>
+    <text x="238" y="10" fill="#fdba74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12">Opus 5.5</text>
+
+    <!-- Argon -->
+    <rect x="310" y="0" width="12" height="12" rx="3" fill="url(#argonBar)"/>
+    <text x="328" y="10" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12">GPT-4 Argon</text>
+  </g>
+
+  <!-- Grid Lines (Horizontal: 100%, 80%, 60%, 40%, 20%, 0%) -->
+  <!-- Chart area: x: 80 to 870, y: 120 to 390 (height 270px -> 2.7px per %) -->
+  <g stroke="#27272a" stroke-dasharray="3,3" stroke-width="1">
+    <!-- 100% = y: 120 -->
+    <line x1="80" y1="120" x2="870" y2="120"/>
+    <text x="65" y="124" fill="#71717a" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="end">100%</text>
+
+    <!-- 80% = y: 174 -->
+    <line x1="80" y1="174" x2="870" y2="174"/>
+    <text x="65" y="178" fill="#71717a" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="end">80%</text>
+
+    <!-- 60% = y: 228 -->
+    <line x1="80" y1="228" x2="870" y2="228"/>
+    <text x="65" y="232" fill="#71717a" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="end">60%</text>
+
+    <!-- 40% = y: 282 -->
+    <line x1="80" y1="282" x2="870" y2="282"/>
+    <text x="65" y="286" fill="#71717a" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="end">40%</text>
+
+    <!-- 20% = y: 336 -->
+    <line x1="80" y1="336" x2="870" y2="336"/>
+    <text x="65" y="340" fill="#71717a" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="end">20%</text>
+  </g>
+
+  <!-- Baseline (0% = y: 390) -->
+  <line x1="80" y1="390" x2="870" y2="390" stroke="#3f3f46" stroke-width="1.5"/>
+  <text x="65" y="394" fill="#71717a" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="end">0%</text>
+
+  <!-- ==================== CLUSTER 1: HumanEval (Pass@1) ==================== -->
+  <!-- Center: x: 175. Bars: width 34, gap 8. Group starts at x: 105 -->
+  <!-- Lotus: 94.8% -> h = 94.8 * 2.7 = 255.96 -> y = 390 - 256 = 134 -->
+  <!-- Astra: 94.2% -> h = 94.2 * 2.7 = 254.34 -> y = 390 - 254 = 136 -->
+  <!-- Claude: 93.8% -> h = 93.8 * 2.7 = 253.26 -> y = 390 - 253 = 137 -->
+  <!-- Argon: 91.6% -> h = 91.6 * 2.7 = 247.32 -> y = 390 - 247 = 143 -->
+  <g>
+    <!-- Lotus 0.1 Max -->
+    <rect x="105" y="134" width="34" height="256" rx="5" fill="url(#lotusBar)" filter="url(#lotusGlow)"/>
+    <text x="122" y="124" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle">94.8%</text>
+
+    <!-- GPT-6 Astra -->
+    <rect x="145" y="136" width="34" height="254" rx="5" fill="url(#astraBar)"/>
+    <text x="162" y="126" fill="#93c5fd" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">94.2%</text>
+
+    <!-- Claude Opus 5.5 -->
+    <rect x="185" y="137" width="34" height="253" rx="5" fill="url(#claudeBar)"/>
+    <text x="202" y="127" fill="#fdba74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">93.8%</text>
+
+    <!-- GPT-4 Argon -->
+    <rect x="225" y="143" width="34" height="247" rx="5" fill="url(#argonBar)"/>
+    <text x="242" y="133" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">91.6%</text>
+
+    <text x="182" y="415" fill="#f4f4f5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" text-anchor="middle">HumanEval</text>
+    <text x="182" y="432" fill="#a1a1aa" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">Code Synthesis (Pass@1)</text>
+  </g>
+
+  <!-- ==================== CLUSTER 2: MATH-500 ==================== -->
+  <!-- Group starts at x: 300 -->
+  <!-- Lotus: 86.4% -> h = 86.4 * 2.7 = 233.28 -> y = 390 - 233 = 157 -->
+  <!-- Astra: 85.9% -> h = 85.9 * 2.7 = 231.93 -> y = 390 - 232 = 158 -->
+  <!-- Claude: 84.7% -> h = 84.7 * 2.7 = 228.69 -> y = 390 - 229 = 161 -->
+  <!-- Argon: 80.2% -> h = 80.2 * 2.7 = 216.54 -> y = 390 - 217 = 173 -->
+  <g>
+    <!-- Lotus 0.1 Max -->
+    <rect x="300" y="157" width="34" height="233" rx="5" fill="url(#lotusBar)" filter="url(#lotusGlow)"/>
+    <text x="317" y="147" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle">86.4%</text>
+
+    <!-- GPT-6 Astra -->
+    <rect x="340" y="158" width="34" height="232" rx="5" fill="url(#astraBar)"/>
+    <text x="357" y="148" fill="#93c5fd" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">85.9%</text>
+
+    <!-- Claude Opus 5.5 -->
+    <rect x="380" y="161" width="34" height="229" rx="5" fill="url(#claudeBar)"/>
+    <text x="397" y="151" fill="#fdba74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">84.7%</text>
+
+    <!-- GPT-4 Argon -->
+    <rect x="420" y="173" width="34" height="217" rx="5" fill="url(#argonBar)"/>
+    <text x="437" y="163" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">80.2%</text>
+
+    <text x="377" y="415" fill="#f4f4f5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" text-anchor="middle">MATH-500</text>
+    <text x="377" y="432" fill="#a1a1aa" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">Olympiad Mathematical Proofs</text>
+  </g>
+
+  <!-- ==================== CLUSTER 3: MMLU-Pro ==================== -->
+  <!-- Group starts at x: 495 -->
+  <!-- Lotus: 82.6% -> h = 82.6 * 2.7 = 223.02 -> y = 390 - 223 = 167 -->
+  <!-- Astra: 82.1% -> h = 82.1 * 2.7 = 221.67 -> y = 390 - 222 = 168 -->
+  <!-- Claude: 81.5% -> h = 81.5 * 2.7 = 220.05 -> y = 390 - 220 = 170 -->
+  <!-- Argon: 76.8% -> h = 76.8 * 2.7 = 207.36 -> y = 390 - 207 = 183 -->
+  <g>
+    <!-- Lotus 0.1 Max -->
+    <rect x="495" y="167" width="34" height="223" rx="5" fill="url(#lotusBar)" filter="url(#lotusGlow)"/>
+    <text x="512" y="157" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle">82.6%</text>
+
+    <!-- GPT-6 Astra -->
+    <rect x="535" y="168" width="34" height="222" rx="5" fill="url(#astraBar)"/>
+    <text x="552" y="158" fill="#93c5fd" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">82.1%</text>
+
+    <!-- Claude Opus 5.5 -->
+    <rect x="575" y="170" width="34" height="220" rx="5" fill="url(#claudeBar)"/>
+    <text x="592" y="160" fill="#fdba74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">81.5%</text>
+
+    <!-- GPT-4 Argon -->
+    <rect x="615" y="183" width="34" height="207" rx="5" fill="url(#argonBar)"/>
+    <text x="632" y="173" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">76.8%</text>
+
+    <text x="572" y="415" fill="#f4f4f5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" text-anchor="middle">MMLU-Pro</text>
+    <text x="572" y="432" fill="#a1a1aa" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">Multi-Discipline Reasoning</text>
+  </g>
+
+  <!-- ==================== CLUSTER 4: GPQA Diamond ==================== -->
+  <!-- Group starts at x: 690 -->
+  <!-- Lotus: 69.2% -> h = 69.2 * 2.7 = 186.84 -> y = 390 - 187 = 203 -->
+  <!-- Astra: 68.4% -> h = 68.4 * 2.7 = 184.68 -> y = 390 - 185 = 205 -->
+  <!-- Claude: 67.9% -> h = 67.9 * 2.7 = 183.33 -> y = 390 - 183 = 207 -->
+  <!-- Argon: 58.5% -> h = 58.5 * 2.7 = 157.95 -> y = 390 - 158 = 232 -->
+  <g>
+    <!-- Lotus 0.1 Max -->
+    <rect x="690" y="203" width="34" height="187" rx="5" fill="url(#lotusBar)" filter="url(#lotusGlow)"/>
+    <text x="707" y="193" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle">69.2%</text>
+
+    <!-- GPT-6 Astra -->
+    <rect x="730" y="205" width="34" height="185" rx="5" fill="url(#astraBar)"/>
+    <text x="747" y="195" fill="#93c5fd" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">68.4%</text>
+
+    <!-- Claude Opus 5.5 -->
+    <rect x="770" y="207" width="34" height="183" rx="5" fill="url(#claudeBar)"/>
+    <text x="787" y="197" fill="#fdba74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">67.9%</text>
+
+    <!-- GPT-4 Argon -->
+    <rect x="810" y="232" width="34" height="158" rx="5" fill="url(#argonBar)"/>
+    <text x="827" y="222" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">58.5%</text>
+
+    <text x="767" y="415" fill="#f4f4f5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" text-anchor="middle">GPQA Diamond</text>
+    <text x="767" y="432" fill="#a1a1aa" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">Doctoral STEM Bench</text>
+  </g>
+
+  <!-- Bottom Badge / Accent -->
+  <g transform="translate(40, 458)">
+    <rect x="0" y="0" width="840" height="2" fill="#27272a"/>
+    <text x="420" y="18" fill="#71717a" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" text-anchor="middle">Source: Lotus Labs Independent Verification Harness (v0.1-eval-suite) • Tested 2026</text>
+  </g>
+</svg>

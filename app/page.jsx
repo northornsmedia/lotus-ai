@@ -556,6 +556,16 @@ for chunk in stream:
             <p className="section-desc">Evaluated rigorously across MMLU-Pro, MATH-500, HumanEval, and GPQA Diamond.</p>
           </div>
 
+          {/* Visual Benchmark & Context Evaluation Charts */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+            <div style={{ background: '#0a0a0f', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+              <img src="/eval-benchmark-chart.svg" alt="STEM Benchmark Evaluations" style={{ width: '100%', display: 'block' }} />
+            </div>
+            <div style={{ background: '#0a0a0f', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+              <img src="/needle-in-haystack.svg" alt="3.2M Token Needle in Haystack Context Recall" style={{ width: '100%', display: 'block' }} />
+            </div>
+          </div>
+
           <div className="benchmark-table-wrap">
             <table className="benchmark-table">
               <thead>
