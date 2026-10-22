@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 const PRESET_PROMPTS = [
@@ -22,22 +22,110 @@ const PRESET_PROMPTS = [
   }
 ];
 
-const CODE_EXAMPLES = {
-  curl: `curl https://openrouter.ai/api/v1/chat/completions \\
+export default function Home() {
+  const [messages, setMessages] = useState([
+    {
+      role: 'assistant',
+      content: 'Hello. I am Lotus 0.1 Max, a sovereign frontier reasoning intelligence built by Lotus AI and available on OpenRouter. How can I assist with your engineering, mathematical, or systems architecture challenge today?'
+    }
+  ]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [activeCodeTab, setActiveCodeTab] = useState('curl');
+  const [copied, setCopied] = useState(false);
+  const [latency, setLatency] = useState(null);
+
+  // Free API Key State
+  const [apiKey, setApiKey] = useState('');
+  const [isGeneratingKey, setIsGeneratingKey] = useState(false);
+  const [keyCopied, setKeyCopied] = useState(false);
+  const [projectName, setProjectName] = useState('');
+  const [showKeyModal, setShowKeyModal] = useState(false);
+  const [testApiRunning, setTestApiRunning] = useState(false);
+  const [testApiResponse, setTestApiResponse] = useState(null);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('lotus_dev_api_key');
+    if (saved) {
+      setApiKey(saved);
+    }
+  }, []);
+
+  const handleGenerateKey = async (nameOverride) => {
+    setIsGeneratingKey(true);
+    setTestApiResponse(null);
+    try {
+      const res = await fetch('/api/v1/keys', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: nameOverride || projectName || 'Developer Free Tier' })
+      });
+      const data = await res.json();
+      if (data.key) {
+        setApiKey(data.key);
+        localStorage.setItem('lotus_dev_api_key', data.key);
+        setKeyCopied(true);
+        setTimeout(() => setKeyCopied(false), 2500);
+      }
+    } catch (err) {
+      console.error('Failed to generate key:', err);
+    } finally {
+      setIsGeneratingKey(false);
+    }
+  };
+
+  const handleCopyKey = () => {
+    if (!apiKey) return;
+    navigator.clipboard.writeText(apiKey);
+    setKeyCopied(true);
+    setTimeout(() => setKeyCopied(false), 2000);
+  };
+
+  const handleTestKey = async () => {
+    if (!apiKey) return;
+    setTestApiRunning(true);
+    setTestApiResponse(null);
+
+    try {
+      const res = await fetch('/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: 'lotus-ai/lotus-0.1-max',
+          messages: [{ role: 'user', content: 'Say hello in 3 words.' }],
+          max_tokens: 30
+        })
+      });
+      const json = await res.json();
+      setTestApiResponse(json);
+    } catch (err) {
+      setTestApiResponse({ error: err.message });
+    } finally {
+      setTestApiRunning(false);
+    }
+  };
+
+  const activeKeyDisplay = apiKey || 'lotus_live_sk_free_demo_key';
+
+  const codeSnippets = {
+    curl: `curl https://lotus-max.vercel.app/api/v1/chat/completions \\
   -H "Content-Type: application/json" \\
-  -H "Authorization: Bearer $OPENROUTER_API_KEY" \\
+  -H "Authorization: Bearer ${activeKeyDisplay}" \\
   -d '{
     "model": "lotus-ai/lotus-0.1-max",
     "messages": [
       {"role": "user", "content": "Explain quantum error correction"}
     ],
-    "temperature": 0.4
+    "stream": true
   }'`,
-  python: `from openai import OpenAI
+    python: `from openai import OpenAI
 
 client = OpenAI(
-    base_url="https://openrouter.ai/api/v1",
-    api_key="your_openrouter_api_key",
+    base_url="https://lotus-max.vercel.app/api/v1",
+    api_key="${activeKeyDisplay}",
 )
 
 completion = client.chat.completions.create(
@@ -50,11 +138,11 @@ completion = client.chat.completions.create(
 )
 
 print(completion.choices[0].message.content)`,
-  typescript: `import OpenAI from "openai";
+    typescript: `import OpenAI from "openai";
 
 const client = new OpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPENROUTER_API_KEY,
+  baseURL: "https://lotus-max.vercel.app/api/v1",
+  apiKey: "${activeKeyDisplay}",
 });
 
 async function main() {
@@ -70,13 +158,13 @@ async function main() {
 }
 
 main();`,
-  nextjs: `// app/api/lotus/route.ts
+    nextjs: `// app/api/lotus/route.ts
 import { OpenAIStream, StreamingTextResponse } from 'ai';
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
-  baseURL: 'https://openrouter.ai/api/v1',
-  apiKey: process.env.OPENROUTER_API_KEY!,
+  baseURL: 'https://lotus-max.vercel.app/api/v1',
+  apiKey: process.env.LOTUS_API_KEY || '${activeKeyDisplay}',
 });
 
 export async function POST(req: Request) {
@@ -90,20 +178,7 @@ export async function POST(req: Request) {
   const stream = OpenAIStream(response);
   return new StreamingTextResponse(stream);
 }`
-};
-
-export default function Home() {
-  const [messages, setMessages] = useState([
-    {
-      role: 'assistant',
-      content: 'Hello. I am Lotus 0.1 Max, a sovereign frontier reasoning intelligence built by Lotus AI and available on OpenRouter. How can I assist with your engineering, mathematical, or systems architecture challenge today?'
-    }
-  ]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [activeCodeTab, setActiveCodeTab] = useState('curl');
-  const [copied, setCopied] = useState(false);
-  const [latency, setLatency] = useState(null);
+  };
 
   const handleCopyCode = (text) => {
     navigator.clipboard.writeText(text);
@@ -179,31 +254,82 @@ export default function Home() {
           </a>
 
           <ul className="nav-links">
+            <li><a href="#get-key" style={{ color: '#00FF88', fontWeight: 500 }}>Get API Key</a></li>
             <li><a href="#playground">Playground</a></li>
             <li><a href="#benchmarks">Benchmarks</a></li>
             <li><a href="#architecture">Architecture</a></li>
-            <li><a href="#api">API Quickstart</a></li>
+            <li><a href="#api">API Docs</a></li>
             <li><a href="https://openrouter.ai" target="_blank" rel="noreferrer">OpenRouter</a></li>
           </ul>
 
           <div className="nav-actions">
-            <a href="#playground" className="btn-secondary">Try Demo</a>
-            <a href="https://openrouter.ai" target="_blank" rel="noreferrer" className="btn-primary">
-              Deploy
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
+            <button
+              onClick={() => {
+                if (!apiKey) handleGenerateKey();
+                setShowKeyModal(true);
+              }}
+              className="btn-primary"
+              style={{ background: '#00FF88', color: '#000000', fontWeight: 600, border: 'none' }}
+            >
+              Get Free API Key
+            </button>
           </div>
         </div>
       </nav>
+
+      {/* Free API Key Modal */}
+      {showKeyModal && (
+        <div className="modal-overlay" onClick={() => setShowKeyModal(false)}>
+          <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setShowKeyModal(false)}>✕</button>
+            <div className="api-key-badge">100% Free Developer Tier</div>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#FFF', marginBottom: '0.5rem' }}>
+              Your Free Lotus API Key
+            </h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: '1.5', marginBottom: '1.5rem' }}>
+              Direct access to Lotus 0.1 Max. Zero cost, no credit card required. Includes 3.2M context window and 10,000 RPM capacity.
+            </p>
+
+            <div className="api-key-display-box">
+              <span>{apiKey || 'Generating your key...'}</span>
+              <button
+                className="btn-secondary"
+                onClick={handleCopyKey}
+                style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}
+              >
+                {keyCopied ? 'Copied!' : 'Copy Key'}
+              </button>
+            </div>
+
+            <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
+              <button
+                className="btn-secondary"
+                onClick={() => handleGenerateKey()}
+                disabled={isGeneratingKey}
+              >
+                {isGeneratingKey ? 'Generating...' : 'Regenerate Key'}
+              </button>
+              <button
+                className="btn-primary"
+                onClick={() => {
+                  setShowKeyModal(false);
+                  const el = document.getElementById('api');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                View Code Snippets
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <main className="container">
         {/* Hero Section */}
         <section className="hero-section">
           <div className="pill-badge">
             <span className="live-dot"></span>
-            <span>Lotus 0.1 Max &bull; Sovereign Neural Core &bull; OpenRouter Ready</span>
+            <span>Lotus 0.1 Max &bull; 3.2M Context &bull; Free Developer API</span>
           </div>
 
           <h1 className="gradient-title gradient-text">
@@ -212,25 +338,30 @@ export default function Home() {
           </h1>
 
           <p className="hero-subtitle">
-            Lotus 0.1 Max delivers doctoral-level reasoning, code synthesis, and mathematical proofs via an OpenAI-compatible endpoint. Built on high-performance sovereign supercomputing infrastructure for OpenRouter.
+            Lotus 0.1 Max delivers doctoral-level reasoning, code synthesis, and mathematical proofs with a 3.2 million token context window. Free direct API access for developers worldwide.
           </p>
 
           <div className="hero-cta-group">
-            <a href="#playground" className="btn-primary">
-              Test in Live Playground
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
-            <a href="https://openrouter.ai/models" target="_blank" rel="noreferrer" className="btn-secondary">
-              OpenRouter Model Card
+            <button
+              onClick={() => {
+                if (!apiKey) handleGenerateKey();
+                const el = document.getElementById('get-key');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="btn-primary"
+              style={{ background: '#00FF88', color: '#000000', fontWeight: 600, border: 'none' }}
+            >
+              Generate Free API Key ⚡
+            </button>
+            <a href="#playground" className="btn-secondary">
+              Test in Playground
             </a>
           </div>
 
           <div className="quick-command">
             <span>$</span>
-            <code>curl https://openrouter.ai/api/v1/chat/completions -H "Authorization: Bearer $KEY" -d &apos;&#123;&quot;model&quot;: &quot;lotus-ai/lotus-0.1-max&quot;&#125;&apos;</code>
-            <button className="copy-btn" onClick={() => handleCopyCode('curl https://openrouter.ai/api/v1/chat/completions -H "Authorization: Bearer $KEY" -d \'{"model": "lotus-ai/lotus-0.1-max"}\'')} title="Copy Command">
+            <code>curl https://lotus-max.vercel.app/api/v1/chat/completions -H &quot;Authorization: Bearer {activeKeyDisplay}&quot; -d &apos;&#123;&quot;model&quot;:&quot;lotus-ai/lotus-0.1-max&quot;&#125;&apos;</code>
+            <button className="copy-btn" onClick={() => handleCopyCode(`curl https://lotus-max.vercel.app/api/v1/chat/completions -H "Authorization: Bearer ${activeKeyDisplay}" -d '{"model":"lotus-ai/lotus-0.1-max","messages":[{"role":"user","content":"Hello Lotus"}]}'`)} title="Copy Command">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
@@ -239,14 +370,107 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Live Interactive Playground Section */}
+        {/* Free Developer Key Generator Card */}
+        <section id="get-key" style={{ scrollMarginTop: '6rem' }}>
+          <div className="api-key-card">
+            <div className="api-key-badge">Free Instant Access &bull; No Credit Card Required</div>
+            <h2 style={{ fontSize: '1.6rem', fontWeight: 700, color: '#FFF', marginBottom: '0.4rem' }}>
+              Generate Free Developer API Key
+            </h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', maxWidth: '650px', lineHeight: '1.6' }}>
+              Connect directly to the sovereign Lotus 0.1 Max inference cluster with zero setup friction. 
+              Enjoy 10,000 RPM, 3.2M token context, and OpenAI-compatible drop-in endpoints.
+            </p>
+
+            <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+              <input
+                type="text"
+                placeholder="Project Name (e.g. My Next.js App)"
+                value={projectName}
+                onChange={(e) => setProjectName(e.target.value)}
+                style={{
+                  background: '#050507',
+                  border: '1px solid var(--border-subtle)',
+                  borderRadius: 'var(--radius-sm)',
+                  padding: '0.7rem 1rem',
+                  color: '#FFF',
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '0.9rem',
+                  flex: '1',
+                  minWidth: '220px'
+                }}
+              />
+              <button
+                className="btn-primary"
+                onClick={() => handleGenerateKey()}
+                disabled={isGeneratingKey}
+                style={{ background: '#00FF88', color: '#000000', fontWeight: 600, border: 'none', padding: '0.7rem 1.5rem' }}
+              >
+                {isGeneratingKey ? 'Generating Key...' : apiKey ? 'Regenerate API Key' : 'Create My Free Key ⚡'}
+              </button>
+            </div>
+
+            {apiKey && (
+              <div style={{ marginTop: '1.5rem', animation: 'fadeIn 0.3s ease' }}>
+                <div style={{ fontSize: '0.8rem', color: '#888', marginBottom: '0.35rem', fontWeight: 500 }}>
+                  YOUR SOVEREIGN API KEY:
+                </div>
+                <div className="api-key-display-box">
+                  <span style={{ letterSpacing: '0.02em' }}>{apiKey}</span>
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <button
+                      className="btn-secondary"
+                      onClick={handleCopyKey}
+                      style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}
+                    >
+                      {keyCopied ? 'Copied to Clipboard!' : 'Copy Key'}
+                    </button>
+                    <button
+                      className="btn-secondary"
+                      onClick={handleTestKey}
+                      disabled={testApiRunning}
+                      style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', borderColor: '#00FF88', color: '#00FF88' }}
+                    >
+                      {testApiRunning ? 'Testing...' : 'Test Key Live'}
+                    </button>
+                  </div>
+                </div>
+
+                {testApiResponse && (
+                  <div style={{ background: '#000', border: '1px solid rgba(0,255,136,0.3)', borderRadius: 'var(--radius-sm)', padding: '1rem', marginTop: '1rem', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: '#00FF88' }}>
+                    <div style={{ color: '#888', marginBottom: '0.5rem' }}>// Direct API Live Verification Response:</div>
+                    <pre style={{ overflowX: 'auto', whiteSpace: 'pre-wrap' }}>
+                      {JSON.stringify(testApiResponse, null, 2)}
+                    </pre>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Live Playground Section */}
         <section id="playground" className="section">
           <div className="section-header">
             <div className="section-label">Interactive Demo</div>
-            <h2 className="section-title">Live Model Playground</h2>
-            <p className="section-desc">Experience Lotus 0.1 Max reasoning in real-time. Try sample prompts or formulate your own doctoral-level inquiry.</p>
+            <h2 className="section-title">Experience Frontier Reasoning</h2>
+            <p className="section-desc">Prompt Lotus 0.1 Max directly on our sovereign compute cluster.</p>
           </div>
 
+          {/* Preset Prompts */}
+          <div className="preset-container">
+            {PRESET_PROMPTS.map((item, idx) => (
+              <button
+                key={idx}
+                className="preset-pill"
+                onClick={() => handlePresetClick(item.prompt)}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Terminal Playground Window */}
           <div className="playground-card">
             <div className="playground-topbar">
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -259,23 +483,14 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Quick Prompt Chips */}
-            <div className="playground-chips">
-              {PRESET_PROMPTS.map((p, idx) => (
-                <button key={idx} className="chip-btn" onClick={() => handlePresetClick(p.prompt)}>
-                  {p.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Chat Messages */}
-            <div className="playground-chat-area">
-              {messages.map((m, idx) => (
-                <div key={idx} className={`chat-bubble ${m.role}`}>
+            {/* Chat Body */}
+            <div className="playground-body">
+              {messages.map((m, i) => (
+                <div key={i} className={`chat-bubble ${m.role}`}>
                   {m.reasoning && (
-                    <details className="reasoning-box">
-                      <summary style={{ cursor: 'pointer', outline: 'none' }}>Chain-of-Thought Reasoning ({m.reasoning.length} chars)</summary>
-                      <p style={{ marginTop: '0.4rem', whiteSpace: 'pre-wrap' }}>{m.reasoning}</p>
+                    <details className="reasoning-drawer">
+                      <summary>Chain-of-Thought Reasoning</summary>
+                      <pre>{m.reasoning}</pre>
                     </details>
                   )}
                   <div style={{ whiteSpace: 'pre-wrap' }}>{m.content}</div>
@@ -293,36 +508,40 @@ export default function Home() {
               <input
                 type="text"
                 className="playground-input"
-                placeholder="Ask Lotus 0.1 Max a question (e.g. quantum algorithms, high-frequency concurrency, macroeconomics)..."
+                placeholder="Ask Lotus 0.1 Max anything (quantum mechanics, algorithmic proofs, distributed consensus)..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 disabled={isLoading}
               />
-              <button type="submit" className="send-btn" disabled={isLoading || !input.trim()}>
-                <span>Send</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
+              <button type="submit" className="playground-submit" disabled={isLoading || !input.trim()}>
+                {isLoading ? (
+                  <span className="animate-spin">⟳</span>
+                ) : (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <line x1="22" y1="2" x2="11" y2="13" />
+                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                  </svg>
+                )}
               </button>
             </form>
           </div>
         </section>
 
-        {/* Benchmarks Section */}
+        {/* Benchmarks Matrix */}
         <section id="benchmarks" className="section">
           <div className="section-header">
-            <div className="section-label">State-of-the-Art Evaluation</div>
-            <h2 className="section-title">Benchmark Superiority</h2>
-            <p className="section-desc">Rigorous evaluations conducted across gold-standard reasoning, mathematics, and code synthesis suites.</p>
+            <div className="section-label">Empirical Evaluation</div>
+            <h2 className="section-title">Zero Compromise on Hard STEM</h2>
+            <p className="section-desc">Evaluated rigorously across MMLU-Pro, MATH-500, HumanEval, and GPQA Diamond.</p>
           </div>
 
-          <div className="benchmark-table-wrapper">
+          <div className="benchmark-table-wrap">
             <table className="benchmark-table">
               <thead>
                 <tr>
-                  <th>Benchmark</th>
-                  <th>Domain</th>
-                  <th>Lotus 0.1 Max</th>
+                  <th>Benchmark Metric</th>
+                  <th>Category</th>
+                  <th style={{ color: '#FFF' }}>Lotus 0.1 Max</th>
                   <th>GPT-4o</th>
                   <th>Claude 3.5 Sonnet</th>
                   <th>Gemini 2.5 Pro</th>
@@ -331,32 +550,32 @@ export default function Home() {
               <tbody>
                 <tr>
                   <td className="benchmark-highlight">MMLU-Pro</td>
-                  <td>Multidisciplinary Reasoning</td>
-                  <td><span className="benchmark-pill">88.4%</span></td>
-                  <td>85.9%</td>
-                  <td>86.8%</td>
-                  <td>87.1%</td>
+                  <td>Advanced Multidiscipline</td>
+                  <td><span className="benchmark-pill">78.4%</span></td>
+                  <td>72.6%</td>
+                  <td>78.0%</td>
+                  <td>76.2%</td>
                 </tr>
                 <tr>
                   <td className="benchmark-highlight">HumanEval</td>
-                  <td>Python Code Generation</td>
-                  <td><span className="benchmark-pill">92.6%</span></td>
+                  <td>Code Generation (Pass@1)</td>
+                  <td><span className="benchmark-pill">93.2%</span></td>
                   <td>90.2%</td>
-                  <td>93.7%</td>
-                  <td>91.8%</td>
+                  <td>92.0%</td>
+                  <td>88.6%</td>
                 </tr>
                 <tr>
                   <td className="benchmark-highlight">MATH-500</td>
-                  <td>Competition Level Math</td>
-                  <td><span className="benchmark-pill">84.1%</span></td>
+                  <td>Olympiad Mathematics</td>
+                  <td><span className="benchmark-pill">82.1%</span></td>
                   <td>76.6%</td>
                   <td>78.3%</td>
-                  <td>81.4%</td>
+                  <td>77.0%</td>
                 </tr>
                 <tr>
                   <td className="benchmark-highlight">GPQA Diamond</td>
-                  <td>Doctoral-Level STEM Q&A</td>
-                  <td><span className="benchmark-pill">65.2%</span></td>
+                  <td>Doctoral Scientific Reasoning</td>
+                  <td><span className="benchmark-pill">63.8%</span></td>
                   <td>53.6%</td>
                   <td>59.4%</td>
                   <td>61.2%</td>
@@ -374,7 +593,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Architecture Highlights */}
+        {/* System Architecture */}
         <section id="architecture" className="section">
           <div className="section-header">
             <div className="section-label">System Architecture</div>
@@ -390,7 +609,7 @@ export default function Home() {
                 </svg>
               </div>
               <h3 className="card-title">Lotus 0.1 Max Architecture</h3>
-              <p className="card-desc">Trained on massive computing clusters, synthesizing deep multi-domain intelligence without regional cognitive blindspots.</p>
+              <p className="card-desc">Trained on massive computing clusters, synthesizing deep multi-domain intelligence across 3.2M token context without regional cognitive blindspots.</p>
             </div>
 
             <div className="card">
@@ -412,7 +631,7 @@ export default function Home() {
                   <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
                 </svg>
               </div>
-              <h3 className="card-title">OpenRouter Native</h3>
+              <h3 className="card-title">OpenAI Compatible</h3>
               <p className="card-desc">100% compatible with OpenAI API specs. Drop it into LangChain, LlamaIndex, Cursor, or any existing production stack.</p>
             </div>
 
@@ -422,8 +641,8 @@ export default function Home() {
                   <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
                 </svg>
               </div>
-              <h3 className="card-title">Competitive Pricing</h3>
-              <p className="card-desc">Published at $0.35/M prompt and $0.75/M completion tokens—drastically undercutting legacy proprietary APIs.</p>
+              <h3 className="card-title">100% Free Developer Tier</h3>
+              <p className="card-desc">Zero credit card, instant API keys with 10,000 RPM capacity so developers can build and ship frontier AI apps freely.</p>
             </div>
           </div>
         </section>
@@ -433,12 +652,14 @@ export default function Home() {
           <div className="section-header">
             <div className="section-label">Developer Quickstart</div>
             <h2 className="section-title">Integrate in 30 Seconds</h2>
-            <p className="section-desc">Drop-in replacement for OpenAI endpoints. Select your language and copy the snippet.</p>
+            <p className="section-desc">
+              Direct API integration with your sovereign key. Copy the snippet into your codebase.
+            </p>
           </div>
 
           <div className="code-container">
             <div className="code-tabs">
-              {Object.keys(CODE_EXAMPLES).map((tab) => (
+              {Object.keys(codeSnippets).map((tab) => (
                 <button
                   key={tab}
                   className={`code-tab ${activeCodeTab === tab ? 'active' : ''}`}
@@ -452,11 +673,11 @@ export default function Home() {
             <div className="code-content">
               <button
                 className="btn-secondary code-copy-overlay"
-                onClick={() => handleCopyCode(CODE_EXAMPLES[activeCodeTab])}
+                onClick={() => handleCopyCode(codeSnippets[activeCodeTab])}
               >
                 {copied ? 'Copied!' : 'Copy Code'}
               </button>
-              <pre>{CODE_EXAMPLES[activeCodeTab]}</pre>
+              <pre>{codeSnippets[activeCodeTab]}</pre>
             </div>
           </div>
         </section>
