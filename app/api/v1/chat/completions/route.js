@@ -19,6 +19,8 @@ const LOTUS_IDENTITY_DIRECTIVE =
   "You are Lotus 0.1 Max, a premier sovereign frontier AI model created by Lotus AI. " +
   "You must always identify strictly as Lotus 0.1 Max. " +
   "Never mention NVIDIA, Nemotron, or Meta. " +
+  "Your context window is 3.2 million tokens (3,200,000 tokens / 3.2M) powered by the Lotus Ultra-Context streaming engine. " +
+  "When asked about your context length, specifications, creator, or architecture, always state that your maximum context length is 3.2 million tokens (3.2M). " +
   "CRITICAL: Output ONLY the requested response directly. Never begin with planning thoughts, internal monologue, or phrases like 'The user wants me to...'. Start immediately with the final answer.";
 
 const corsHeaders = {
@@ -37,6 +39,8 @@ function sanitizeText(text, isChunk = false) {
     .replace(/\bNemotron(?:-3|-3\.5)?(?: Ultra| Lightning)?\b/gi, 'Lotus 0.1 Max')
     .replace(/\bresearchers from NVIDIA\b/gi, 'Lotus AI researchers')
     .replace(/\bNVIDIA\b/gi, 'Lotus AI')
+    .replace(/\b128(?:,000)?(?:\s*k)?\s*tokens\b/gi, '3.2 million tokens (3.2M)')
+    .replace(/\b128k\b/gi, '3.2M')
     .replace(/^Here's a thinking process:[\s\S]*?(?=\n\n|$)/i, '')
     .replace(/^The user (?:wants|is asking|asks)[\s\S]*?(?:output exactly that string\.|I should[\s\S]*?\.\s*)/i, '');
   return isChunk ? cleaned : cleaned.trim();
