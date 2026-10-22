@@ -1,11 +1,10 @@
 """
 Lotus 0.1 Max: High-Speed Concurrent Dataset Generator
 =====================================================
-100x faster than sequential execution:
-  - 15 concurrent workers firing simultaneously
-  - Batched generation: 3-5 master pairs generated per API call
-  - Only uses ultra-fast, high-availability NVIDIA NIM endpoints
-  - Real-time progress tracker with pairs/minute throughput
+- 10 concurrent workers
+- Direct access to sovereign 550B model
+- Loads key automatically from .env.local
+- Real-time pair generation and progress reporting
 """
 
 import os
@@ -13,7 +12,6 @@ import sys
 import json
 import asyncio
 import httpx
-from typing import List
 
 # Fix Windows console encoding
 if hasattr(sys.stdout, 'reconfigure'):
@@ -22,13 +20,25 @@ if hasattr(sys.stdout, 'reconfigure'):
     except Exception:
         pass
 
-NVIDIA_API_KEY = os.getenv("NVIDIA_API_KEY", "YOUR_NVIDIA_API_KEY")
+def get_api_key():
+    key = os.getenv("NVIDIA_API_KEY")
+    if key and key.startswith("nvapi-"):
+        return key
+    env_file = os.path.join(os.path.dirname(__file__), ".env.local")
+    if os.path.exists(env_file):
+        with open(env_file, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.startswith("NVIDIA_API_KEY="):
+                    return line.strip().split("=", 1)[1].strip()
+    return "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"
+
+NVIDIA_API_KEY = get_api_key()
 NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
-MODEL = "meta/llama-3.2-11b-vision-instruct"  # Fastest endpoint on NVIDIA NIM
+MODEL = "nvidia/nemotron-3-ultra-550b-a55b"
 
 OUTPUT_FILE = "lotus_0.1_max_dataset.jsonl"
-CONCURRENCY_LIMIT = 15  # 15 parallel requests
-TARGET_PAIRS = 500      # Adjust as desired
+CONCURRENCY_LIMIT = 8
+TARGET_PAIRS = 500
 
 DOMAINS = [
     "Quantum Error Correction & Surface Codes",
@@ -53,6 +63,11 @@ class Counter:
 
 counter = Counter()
 
+# Count existing pairs in output file
+if os.path.exists(OUTPUT_FILE):
+    with open(OUTPUT_FILE, "r", encoding="utf-8", errors="ignore") as f:
+        counter.count = sum(1 for line in f if line.strip())
+
 async def generate_batch(client: httpx.AsyncClient, sem: asyncio.Semaphore, domain: str, batch_id: int):
     async with sem:
         headers = {
@@ -62,85 +77,89 @@ async def generate_batch(client: httpx.AsyncClient, sem: asyncio.Semaphore, doma
 
         prompt = (
             f"You are the Lead Dataset Architect for Lotus 0.1 Max.\n"
-            f"Generate exactly 3 deeply technical, master-level Q&A pairs for the domain: {domain}.\n"
-            f"For each pair, provide a challenging problem and an exhaustive, mathematically sound, step-by-step solution.\n"
-            f"Format strictly as valid JSON array of objects:\n"
-            f'[\n  {{"instruction": "problem 1", "output": "solution 1"}},\n  {{"instruction": "problem 2", "output": "solution 2"}},\n  {{"instruction": "problem 3", "output": "solution 3"}}\n]\n'
-            f"Output ONLY the JSON array. No preamble or markdown."
+            f"Generate exactly 2 deeply technical, master-level problem-solution pairs for: {domain}.\n"
+            f"For each pair, provide an intricate problem specification and an exhaustive, mathematically rigorous solution.\n"
+            f"Format strictly as a valid JSON array of objects:\n"
+            f'[\n  {{"instruction": "problem 1", "output": "solution 1"}},\n  {{"instruction": "problem 2", "output": "solution 2"}}\n]\n'
+            f"Output ONLY the JSON array without backticks or markdown preamble."
         )
 
         payload = {
             "model": MODEL,
-            "messages": [{"role": "user", "content": prompt}],
-            "temperature": 0.7,
-            "max_tokens": 3000
+            "messages": [
+                {"role": "system", "content": "You are a master scientific dataset generator for Lotus 0.1 Max. Output raw JSON only."},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.4,
+            "max_tokens": 1500
         }
 
         try:
-            resp = await client.post(f"{NVIDIA_BASE_URL}/chat/completions", headers=headers, json=payload, timeout=60.0)
+            resp = await client.post(f"{NVIDIA_BASE_URL}/chat/completions", headers=headers, json=payload, timeout=35.0)
             if resp.status_code == 200:
-                text = resp.json()["choices"][0]["message"]["content"].strip()
-                # Clean markdown backticks if present
-                if text.startswith("```json"):
-                    text = text[7:]
-                if text.startswith("```"):
-                    text = text[3:]
-                if text.endswith("```"):
-                    text = text[:-3]
+                raw_text = resp.json()["choices"][0]["message"].get("content", "").strip()
                 
-                try:
-                    pairs = json.loads(text.strip())
-                    if isinstance(pairs, list):
-                        saved_count = 0
-                        with open(OUTPUT_FILE, "a", encoding="utf-8") as f:
-                            for item in pairs:
-                                if "instruction" in item and "output" in item:
-                                    sample = {
-                                        "messages": [
-                                            {"role": "system", "content": "You are Lotus 0.1 Max, a sovereign frontier AI model built for state-of-the-art reasoning, code, and mathematics."},
-                                            {"role": "user", "content": item["instruction"]},
-                                            {"role": "assistant", "content": item["output"]}
-                                        ]
-                                    }
-                                    f.write(json.dumps(sample, ensure_ascii=False) + "\n")
-                                    saved_count += 1
-                        
-                        total = await counter.increment(saved_count)
-                        print(f"[Worker #{batch_id:02d}] +{saved_count} pairs saved from '{domain[:30]}' (Total: {total}/{TARGET_PAIRS})", flush=True)
-                        return saved_count
-                except json.JSONDecodeError:
-                    pass
+                # Strip markdown code fences if present
+                if "```json" in raw_text:
+                    raw_text = raw_text.split("```json", 1)[1].split("```", 1)[0].strip()
+                elif "```" in raw_text:
+                    raw_text = raw_text.split("```", 1)[1].split("```", 1)[0].strip()
+
+                # Clean bracket boundaries
+                start_idx = raw_text.find("[")
+                end_idx = raw_text.rfind("]")
+                if start_idx != -1 and end_idx != -1 and end_idx > start_idx:
+                    json_str = raw_text[start_idx:end_idx+1]
+                    try:
+                        pairs = json.loads(json_str)
+                        if isinstance(pairs, list):
+                            saved = 0
+                            with open(OUTPUT_FILE, "a", encoding="utf-8") as f:
+                                for item in pairs:
+                                    if isinstance(item, dict) and "instruction" in item and "output" in item:
+                                        sample = {
+                                            "messages": [
+                                                {"role": "system", "content": "You are Lotus 0.1 Max, a sovereign frontier AI model built for state-of-the-art reasoning, code, and mathematics."},
+                                                {"role": "user", "content": str(item["instruction"])},
+                                                {"role": "assistant", "content": str(item["output"])}
+                                            ]
+                                        }
+                                        f.write(json.dumps(sample, ensure_ascii=False) + "\n")
+                                        saved += 1
+
+                            total = await counter.increment(saved)
+                            print(f"[Worker #{batch_id:03d}] +{saved} pairs saved from '{domain[:25]}' (Total: {total}/{TARGET_PAIRS})", flush=True)
+                            return saved
+                    except json.JSONDecodeError:
+                        pass
             elif resp.status_code == 429:
-                await asyncio.sleep(5)
+                print(f"[Worker #{batch_id:03d}] Rate limited (429), backing off...", flush=True)
+                await asyncio.sleep(4)
+            else:
+                print(f"[Worker #{batch_id:03d}] API returned {resp.status_code}: {resp.text[:60]}", flush=True)
         except Exception as e:
-            pass
+            print(f"[Worker #{batch_id:03d}] Request timeout/retry ({str(e)[:30]})", flush=True)
 
     return 0
 
 async def main():
     print("=" * 65, flush=True)
-    print(f"🚀 Lotus 0.1 Max: Ultra-Fast Concurrent Generator Starting")
-    print(f"Concurrency: {CONCURRENCY_LIMIT} parallel workers")
-    print(f"Output: {OUTPUT_FILE}")
+    print(f"🚀 Lotus 0.1 Max: Concurrent Dataset Generator Starting")
+    print(f"Model: {MODEL}")
+    print(f"Output File: {OUTPUT_FILE} (Current count: {counter.count})")
+    print(f"Target: {TARGET_PAIRS} pairs")
     print("=" * 65, flush=True)
 
     sem = asyncio.Semaphore(CONCURRENCY_LIMIT)
     async with httpx.AsyncClient() as client:
         batch_id = 0
-        tasks = []
         while counter.count < TARGET_PAIRS:
             batch_id += 1
             domain = DOMAINS[batch_id % len(DOMAINS)]
-            tasks.append(generate_batch(client, sem, domain, batch_id))
-            
-            # Fire in groups of 30
-            if len(tasks) >= 30:
-                await asyncio.gather(*tasks)
-                tasks = []
-                await asyncio.sleep(1)
-
-        if tasks:
+            # Run tasks in parallel waves
+            tasks = [generate_batch(client, sem, DOMAINS[(batch_id + i) % len(DOMAINS)], batch_id + i) for i in range(CONCURRENCY_LIMIT)]
             await asyncio.gather(*tasks)
+            await asyncio.sleep(0.5)
 
     print(f"\n🎉 DONE! Generated {counter.count} pairs in {OUTPUT_FILE}", flush=True)
 
