@@ -2,28 +2,67 @@ import './globals.css';
 
 export const metadata = {
   metadataBase: new URL('https://lotus-max.vercel.app'),
-  title: 'Lotus 0.1 Max — Sovereign Global Frontier Intelligence (550B)',
-  description: 'Lotus 0.1 Max delivers doctoral-level reasoning powered by sovereign distributed neural infrastructure. Developed by Lotus Labs.',
-  keywords: ['AI model', 'Lotus 0.1 Max', 'Lotus Labs', 'Frontier Intelligence', 'Reasoning Model', '3.2M Context'],
+  title: 'Lotus 0.1 Max — Free 3.2M Context Sovereign AI API (10,000 RPM)',
+  description: '100% Free OpenAI-compatible API with 3.2M token context, beating GPT-6 Astra and Claude Opus 5.5 in STEM evaluations. Zero credit card, 10,000 RPM, sub-140ms TTFT. Instant drop-in for Cursor, VS Code, and Python.',
+  keywords: [
+    'free ai api',
+    'openai alternative',
+    'cursor ai api',
+    'free llm api',
+    '3.2M context window',
+    'lotus 0.1 max',
+    'lotus labs',
+    'frontier intelligence',
+    'free chatgpt api',
+    'gpt-6 alternative',
+    'claude alternative',
+    'continue dev api',
+    'aider free api',
+    'open source ai',
+    'stem reasoning ai'
+  ],
+  authors: [{ name: 'Lotus Labs', url: 'https://lotus-max.vercel.app' }],
+  creator: 'Lotus Labs',
+  publisher: 'Lotus Labs',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: '/favicon.png',
     shortcut: '/favicon.ico',
     apple: '/logo.png',
   },
   openGraph: {
-    title: 'Lotus 0.1 Max — Sovereign Global Frontier Intelligence',
-    description: 'Doctoral-level AI reasoning model developed sovereignly by Lotus Labs.',
+    title: 'Lotus 0.1 Max — Free 3.2M Context Sovereign AI API',
+    description: '100% Free Developer Tier • 10,000 RPM • 3,200,000 Token Ingestion • Sub-140ms TTFT • 100% OpenAI Drop-In Compatible.',
     url: 'https://lotus-max.vercel.app',
     siteName: 'Lotus Labs',
-    images: [{ url: '/logo.png', width: 1024, height: 1024, alt: 'Lotus Labs Official Logo' }],
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1920,
+        height: 1080,
+        alt: 'Lotus 0.1 Max — 3.2M Context Sovereign AI Banner',
+      },
+    ],
+    locale: 'en_US',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Lotus 0.1 Max — Sovereign Global Frontier Intelligence',
-    description: 'Developed by Lotus Labs. Free Developer API at lotus-max.vercel.app',
-    images: ['/logo.png'],
-  }
+    title: 'Lotus 0.1 Max — Free 3.2M Token Context AI API',
+    description: '100% Free Developer Access • 10,000 RPM • 3.2M Context • Sub-140ms Latency • OpenAI Compatible.',
+    images: ['/og-image.jpg'],
+    creator: '@lotuslabs',
+  },
 };
 
 export default function RootLayout({ children }) {

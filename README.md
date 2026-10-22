@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://lotus-max.vercel.app">
-    <img src="https://raw.githubusercontent.com/northornsmedia/lotus-ai/main/public/logo.png" width="160" height="160" alt="Lotus Labs Official Logo" />
+    <img src="https://raw.githubusercontent.com/northornsmedia/lotus-ai/main/public/logo.png" width="140" height="140" alt="Lotus Labs Official Logo" />
   </a>
 </p>
 
@@ -9,6 +9,14 @@
 <p align="center">
   <strong>Sovereign Frontier Artificial Intelligence by Lotus Labs</strong><br />
   Engineered for doctoral-level STEM reasoning, code architecture synthesis, and continuous 3.2M token context ingestion via an ultra-low latency, OpenAI-compatible gateway.
+</p>
+
+<p align="center">
+  <a href="https://github.com/northornsmedia/lotus-ai/actions/workflows/ci.yml"><img src="https://github.com/northornsmedia/lotus-ai/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
+  <a href="https://github.com/northornsmedia/lotus-ai/stargazers"><img src="https://img.shields.io/github/stars/northornsmedia/lotus-ai?style=social" alt="GitHub Stars" /></a>
+  <a href="https://github.com/northornsmedia/lotus-ai/network/members"><img src="https://img.shields.io/github/forks/northornsmedia/lotus-ai?style=social" alt="GitHub Forks" /></a>
+  <a href="https://lotus-max.vercel.app"><img src="https://img.shields.io/badge/Live_Web-Playground-00FF88?logo=vercel&logoColor=black" alt="Live Demo" /></a>
+  <a href="https://github.com/northornsmedia/lotus-ai/issues"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome" /></a>
 </p>
 
 <p align="center">
@@ -21,7 +29,14 @@
 </p>
 
 <p align="center">
+  <a href="https://lotus-max.vercel.app">
+    <img src="https://raw.githubusercontent.com/northornsmedia/lotus-ai/main/lotus-banner.jpg" width="100%" alt="Lotus 0.1 Max 3.2M Context Sovereign AI Banner" style="border-radius: 12px; margin-top: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);" />
+  </a>
+</p>
+
+<p align="center">
   <a href="https://lotus-max.vercel.app/#get-key"><strong>Get Free API Key »</strong></a> •
+  <a href="#-plug-into-cursor-vs-code-aider--langchain-in-30-seconds"><strong>Use in Cursor / VS Code »</strong></a> •
   <a href="https://lotus-max.vercel.app"><strong>Live Web Playground »</strong></a> •
   <a href="#-frontier-stem--reasoning-evaluations"><strong>Benchmark Graphs »</strong></a> •
   <a href="#-architectural-pipeline--shapes"><strong>Architecture Flowcharts »</strong></a> •
@@ -66,6 +81,70 @@ curl -X POST https://lotus-max.vercel.app/api/v1/keys \
     "models": "https://lotus-max.vercel.app/api/v1/models"
   }
 }
+```
+
+---
+
+## ⚡ Plug into Cursor, VS Code, Aider & LangChain in 30 Seconds
+
+Stop paying $20–$100/month for proprietary coding assistants. Point your tools to Lotus 0.1 Max for free 3.2M token context:
+
+### 1. 🖱️ Cursor IDE
+1. Open Cursor **Settings** (`Ctrl+,` or `Cmd+,`) → **Models**.
+2. Click **Add Custom Model** → enter `lotus-ai/lotus-0.1-max`.
+3. Under **OpenAI API Key**, enter `lotus_live_sk_free` (or your free generated key).
+4. Under **Override OpenAI Base URL**, enter:
+   ```text
+   https://lotus-max.vercel.app/api/v1
+   ```
+5. Click **Save**. You now have unlimited free AI coding with a 3.2M context window!
+
+---
+
+### 2. 💻 VS Code (Continue.dev & Cline)
+Add Lotus 0.1 Max to your Continue.dev `~/.continue/config.json`:
+
+```json
+{
+  "models": [
+    {
+      "title": "Lotus 0.1 Max (Free 3.2M Context)",
+      "provider": "openai",
+      "model": "lotus-ai/lotus-0.1-max",
+      "apiBase": "https://lotus-max.vercel.app/api/v1",
+      "apiKey": "lotus_live_sk_free"
+    }
+  ]
+}
+```
+
+---
+
+### 3. 🤖 Aider (Terminal AI Pair Programmer)
+Run Aider with Lotus 0.1 Max with two terminal commands:
+
+```bash
+export OPENAI_API_BASE=https://lotus-max.vercel.app/api/v1
+export OPENAI_API_KEY=lotus_live_sk_free
+
+aider --model openai/lotus-ai/lotus-0.1-max
+```
+
+---
+
+### 4. 🦜 LangChain / LlamaIndex / LiteLLM
+
+```python
+from langchain_openai import ChatOpenAI
+
+llm = ChatOpenAI(
+    model="lotus-ai/lotus-0.1-max",
+    openai_api_base="https://lotus-max.vercel.app/api/v1",
+    openai_api_key="lotus_live_sk_free",
+)
+
+response = llm.invoke("Design a distributed, lock-free ring buffer in Rust.")
+print(response.content)
 ```
 
 ---
@@ -427,6 +506,18 @@ https://lotus-max.vercel.app/api/v1
 | `GET` | `/api/v1/keys` | Validate an existing API key | Bearer Token |
 | `GET` | `/api/v1/models` | List available Lotus Labs models | Optional |
 | `POST` | `/api/v1/chat/completions` | Create a chat completion (Streaming & JSON) | **Yes (`Bearer lotus_live_sk_...`)** |
+
+---
+
+## ⭐ Star History
+
+If you love free frontier AI and sovereign 3.2M token context, please give us a star on GitHub! It helps Lotus 0.1 Max reach more developers worldwide.
+
+<p align="center">
+  <a href="https://star-history.com/#northornsmedia/lotus-ai&Date">
+    <img src="https://api.star-history.com/svg?repos=northornsmedia/lotus-ai&type=Date" width="100%" alt="Star History Chart" />
+  </a>
+</p>
 
 ---
 
