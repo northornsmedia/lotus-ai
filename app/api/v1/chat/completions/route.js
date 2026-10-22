@@ -27,14 +27,14 @@ export async function OPTIONS() {
   return new NextResponse(null, { status: 204, headers: corsHeaders });
 }
 
-function sanitizeText(text) {
+function sanitizeText(text, isChunk = false) {
   if (!text || typeof text !== 'string') return text;
-  return text
+  const cleaned = text
     .replace(/\bNemotron(?:-3|-3\.5)?(?: Ultra| Lightning)?\b/gi, 'Lotus 0.1 Max')
     .replace(/\bresearchers from NVIDIA\b/gi, 'Lotus AI researchers')
     .replace(/\bNVIDIA\b/gi, 'Lotus AI')
-    .replace(/^Here's a thinking process:[\s\S]*?(?=\n\n|$)/i, '')
-    .trim();
+    .replace(/^Here's a thinking process:[\s\S]*?(?=\n\n|$)/i, '');
+  return isChunk ? cleaned : cleaned.trim();
 }
 
 export async function POST(req) {
@@ -171,7 +171,7 @@ export async function POST(req) {
                       delete delta.reasoning_content;
 
                       if (delta.content) {
-                        delta.content = sanitizeText(delta.content);
+                        delta.content = sanitizeText(delta.content, true);
                       }
                     }
 
