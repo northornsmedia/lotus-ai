@@ -115,6 +115,22 @@ export async function POST(req) {
       presence_penalty = 0
     } = body;
 
+    const authHeader = req.headers.get("authorization") || req.headers.get("Authorization") || "";
+    const apiKey = authHeader.replace(/^Bearer\s+/i, "").trim();
+
+    if (!apiKey) {
+      return NextResponse.json(
+        { 
+          error: { 
+            message: "You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY). Generate a free sovereign developer key at https://lotus-max.vercel.app", 
+            type: "invalid_request_error", 
+            code: "missing_api_key" 
+          } 
+        },
+        { status: 401, headers: corsHeaders }
+      );
+    }
+
     if (!Array.isArray(messages) || messages.length === 0) {
       return NextResponse.json(
         { error: { message: "messages array is required and cannot be empty", type: "invalid_request_error" } },
