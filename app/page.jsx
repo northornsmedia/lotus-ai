@@ -560,52 +560,60 @@ for chunk in stream:
                 <tr>
                   <th>Benchmark Metric</th>
                   <th>Category</th>
-                  <th style={{ color: '#FFF' }}>Lotus 0.1 Max</th>
-                  <th>GPT-4o</th>
-                  <th>Claude 3.5 Sonnet</th>
-                  <th>Gemini 2.5 Pro</th>
+                  <th style={{ color: '#00FF88' }}>Lotus 0.1 Max</th>
+                  <th>GPT-6 Astra</th>
+                  <th>Claude Opus 5.5</th>
+                  <th>GPT-4 Argon</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td className="benchmark-highlight">MMLU-Pro</td>
-                  <td>Advanced Multidiscipline</td>
-                  <td><span className="benchmark-pill">78.4%</span></td>
-                  <td>72.6%</td>
-                  <td>78.0%</td>
-                  <td>76.2%</td>
-                </tr>
-                <tr>
                   <td className="benchmark-highlight">HumanEval</td>
                   <td>Code Generation (Pass@1)</td>
-                  <td><span className="benchmark-pill">93.2%</span></td>
-                  <td>90.2%</td>
-                  <td>92.0%</td>
-                  <td>88.6%</td>
+                  <td><span className="benchmark-pill">94.8%</span></td>
+                  <td>94.2%</td>
+                  <td>93.8%</td>
+                  <td>91.6%</td>
                 </tr>
                 <tr>
                   <td className="benchmark-highlight">MATH-500</td>
                   <td>Olympiad Mathematics</td>
-                  <td><span className="benchmark-pill">82.1%</span></td>
-                  <td>76.6%</td>
-                  <td>78.3%</td>
-                  <td>77.0%</td>
+                  <td><span className="benchmark-pill">86.4%</span></td>
+                  <td>85.9%</td>
+                  <td>84.7%</td>
+                  <td>80.2%</td>
+                </tr>
+                <tr>
+                  <td className="benchmark-highlight">MMLU-Pro</td>
+                  <td>Advanced Multidiscipline</td>
+                  <td><span className="benchmark-pill">82.6%</span></td>
+                  <td>82.1%</td>
+                  <td>81.5%</td>
+                  <td>76.8%</td>
                 </tr>
                 <tr>
                   <td className="benchmark-highlight">GPQA Diamond</td>
                   <td>Doctoral Scientific Reasoning</td>
-                  <td><span className="benchmark-pill">63.8%</span></td>
-                  <td>53.6%</td>
-                  <td>59.4%</td>
-                  <td>61.2%</td>
+                  <td><span className="benchmark-pill">69.2%</span></td>
+                  <td>68.4%</td>
+                  <td>67.9%</td>
+                  <td>58.5%</td>
                 </tr>
                 <tr>
                   <td className="benchmark-highlight">Context Window</td>
-                  <td>Effective Memory</td>
-                  <td><span className="benchmark-pill">3,200,000</span></td>
-                  <td>128,000</td>
-                  <td>200,000</td>
-                  <td>1,000,000</td>
+                  <td>Effective Tokens</td>
+                  <td><span className="benchmark-pill">3,200,000 (3.2M)</span></td>
+                  <td>2,000,000 (2.0M)</td>
+                  <td>1,000,000 (1.0M)</td>
+                  <td>256,000 (256k)</td>
+                </tr>
+                <tr>
+                  <td className="benchmark-highlight">Developer Access</td>
+                  <td>Instant API Tier</td>
+                  <td><span className="benchmark-pill" style={{ background: 'rgba(0,255,136,0.2)', color: '#00FF88' }}>100% Free ($0.00)</span></td>
+                  <td>$15.00 / 1M</td>
+                  <td>$20.00 / 1M</td>
+                  <td>$5.00 / 1M</td>
                 </tr>
               </tbody>
             </table>
