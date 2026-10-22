@@ -60,7 +60,7 @@ export async function POST(req) {
 
     if (!NVIDIA_API_KEY) {
       return NextResponse.json(
-        { error: { message: "Provider upstream API key not configured.", type: "server_error" } },
+        { error: { message: "Cluster backend credentials unconfigured.", type: "server_error" } },
         { status: 500, headers: corsHeaders }
       );
     }

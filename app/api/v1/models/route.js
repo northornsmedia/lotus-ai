@@ -20,7 +20,7 @@ export async function GET() {
         created: 1729584000,
         owned_by: "lotus-ai",
         name: "Lotus 0.1 Max",
-        description: "Frontier reasoning model synthesized across sovereign NVIDIA H100/B200 cluster infrastructure. 131k context window, sub-300ms time-to-first-token, zero data retention.",
+        description: "Frontier reasoning model built on sovereign high-throughput neural cluster infrastructure. 131k context window, low-latency streaming, zero data retention.",
         context_length: 131072,
         max_completion_tokens: 8192,
         pricing: {

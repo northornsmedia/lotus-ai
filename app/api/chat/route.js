@@ -25,7 +25,7 @@ export async function POST(req) {
     }
 
     if (!NVIDIA_API_KEY) {
-      return NextResponse.json({ error: "NVIDIA_API_KEY is not configured in environment variables." }, { status: 500 });
+      return NextResponse.json({ error: "Sovereign cluster authentication error." }, { status: 500 });
     }
 
     const payload = {

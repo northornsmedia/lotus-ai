@@ -96,7 +96,7 @@ export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'Hello. I am Lotus 0.1 Max, a global frontier reasoning intelligence powered by NVIDIA NIM and available on OpenRouter. How can I assist with your engineering, mathematical, or systems architecture challenge today?'
+      content: 'Hello. I am Lotus 0.1 Max, a sovereign frontier reasoning intelligence built by Lotus AI and available on OpenRouter. How can I assist with your engineering, mathematical, or systems architecture challenge today?'
     }
   ]);
   const [input, setInput] = useState('');
@@ -154,7 +154,7 @@ export default function Home() {
         ...newMessages,
         {
           role: 'assistant',
-          content: `⚠️ Error: ${err.message}. Please check your NVIDIA API key configuration.`
+          content: `⚠️ Error: ${err.message}. Please verify your API configuration.`
         }
       ]);
     } finally {
@@ -203,7 +203,7 @@ export default function Home() {
         <section className="hero-section">
           <div className="pill-badge">
             <span className="live-dot"></span>
-            <span>Lotus 0.1 Max &bull; NVIDIA NIM &bull; OpenRouter Ready</span>
+            <span>Lotus 0.1 Max &bull; Sovereign Neural Core &bull; OpenRouter Ready</span>
           </div>
 
           <h1 className="gradient-title gradient-text">
@@ -212,7 +212,7 @@ export default function Home() {
           </h1>
 
           <p className="hero-subtitle">
-            Lotus 0.1 Max delivers doctoral-level reasoning, code synthesis, and mathematical proofs via an OpenAI-compatible endpoint. Built on NVIDIA supercomputing infrastructure for OpenRouter.
+            Lotus 0.1 Max delivers doctoral-level reasoning, code synthesis, and mathematical proofs via an OpenAI-compatible endpoint. Built on high-performance sovereign supercomputing infrastructure for OpenRouter.
           </p>
 
           <div className="hero-cta-group">
@@ -283,7 +283,7 @@ export default function Home() {
               ))}
               {isLoading && (
                 <div className="chat-bubble assistant" style={{ color: '#888' }}>
-                  <span>Lotus 0.1 Max synthesizing solution via NVIDIA NIM compute cluster...</span>
+                  <span>Lotus 0.1 Max synthesizing solution via sovereign neural compute cluster...</span>
                 </div>
               )}
             </div>
@@ -379,7 +379,7 @@ export default function Home() {
           <div className="section-header">
             <div className="section-label">System Architecture</div>
             <h2 className="section-title">Engineered for Global Scale</h2>
-            <p className="section-desc">Harnessing distributed NVIDIA NIM infrastructure for maximum throughput and minimal time-to-first-token.</p>
+            <p className="section-desc">Harnessing distributed sovereign neural cluster infrastructure for maximum throughput and minimal time-to-first-token.</p>
           </div>
 
           <div className="grid-cards">
@@ -402,8 +402,8 @@ export default function Home() {
                   <line x1="6" y1="18" x2="6.01" y2="18" />
                 </svg>
               </div>
-              <h3 className="card-title">NVIDIA NIM Backbone</h3>
-              <p className="card-desc">Utilizes TensorRT-LLM and vLLM acceleration on H100/B200 GPU infrastructure for instant time-to-first-token (TTFT).</p>
+              <h3 className="card-title">Sovereign Compute Core</h3>
+              <p className="card-desc">Utilizes dedicated high-throughput tensor acceleration across distributed clusters for sub-second time-to-first-token (TTFT).</p>
             </div>
 
             <div className="card">
@@ -469,8 +469,8 @@ export default function Home() {
             <Link href="/">Home</Link>
             <Link href="/privacy">Privacy Policy</Link>
             <Link href="/terms">Terms of Service</Link>
+            <Link href="/api/v1/models">Models API</Link>
             <a href="https://openrouter.ai" target="_blank" rel="noreferrer">OpenRouter</a>
-            <a href="https://build.nvidia.com/models" target="_blank" rel="noreferrer">NVIDIA NIM</a>
             <a href="https://github.com/northornsmedia/lotus-ai" target="_blank" rel="noreferrer">GitHub</a>
           </div>
           <p>&copy; {new Date().getFullYear()} Lotus AI &bull; Lotus 0.1 Max &bull; <a href="https://lotus-max.vercel.app" style={{ color: 'inherit', textDecoration: 'none' }}>lotus-max.vercel.app</a></p>

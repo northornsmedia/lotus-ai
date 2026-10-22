@@ -1,6 +1,6 @@
-# Lotus 0.1 Max (Global Frontier Architecture)
+# Lotus 0.1 Max (Global Sovereign Frontier Architecture)
 
-A global-scale, frontier AI pipeline and web application for **Lotus 0.1 Max**, powered by **NVIDIA NIM** (`https://build.nvidia.com/models`). It uses NVIDIA's computing infrastructure to autonomously generate master-level instruction data, fine-tune models serverless, and publish an official OpenAI-compatible provider endpoint to **OpenRouter**, paired with a Next.js frontend hosted at **`lotus-ai.vercel.app`**.
+Lotus 0.1 Max is a premier global frontier artificial intelligence developed by **Lotus AI**. Engineered for high-throughput doctoral-level reasoning, code synthesis, and mathematical proofs via an OpenAI-compatible provider gateway.
 
 ---
 
@@ -8,53 +8,51 @@ A global-scale, frontier AI pipeline and web application for **Lotus 0.1 Max**, 
 
 - **Model ID**: `lotus-ai/lotus-0.1-max`
 - **Context Length**: 131,072 tokens
-- **Inference Infrastructure**: NVIDIA NIM (H100/B200 clusters)
+- **Max Completion**: 8,192 tokens
+- **Inference Infrastructure**: Dedicated Sovereign Neural Cluster
 - **Token Pricing**: $0.35/1M prompt • $0.75/1M completion
-- **Frontend URL**: [lotus-ai.vercel.app](https://lotus-ai.vercel.app)
+- **Live Endpoint**: [lotus-max.vercel.app](https://lotus-max.vercel.app)
 
 ---
 
-## ⚡ Active NVIDIA NIM Models
+## ⚡ Architecture & Capabilities
 
-| Model Name | Specs & Role |
-| :--- | :--- |
-| `nvidia/nemotron-3-ultra-550b-a55b` | **550 Billion Parameter** flagship frontier model for heavy synthesis. |
-| `nvidia/nemotron-3.5-lightning-30b-a3b` | 30B deep reasoning model with integrated chain-of-thought (`reasoning_content`). |
-| `stepfun-ai/step-5-preview` | Frontier step-5 reasoning engine for logic and factual verification. |
-| `meta/llama-3.2-11b-vision-instruct` | Ultra-fast Meta Llama 3.2 model for task formulation and swift completion. |
-| `nvidia/llama-3.1-nemotron-safety-guard-8b-v3` | NVIDIA's constitutional alignment and safety guard. |
-| `nvidia/riva-translate-4b-instruct-v2` | Global multilingual translation across international languages. |
+Lotus 0.1 Max features:
+- **550B Parameter Sovereign Foundation**: Built for high-dimensional reasoning across computer science, theoretical physics, distributed systems, and economics.
+- **Sub-Second Streaming**: Native SSE text-streaming with optimized time-to-first-token.
+- **Zero Data Retention**: Client prompts and completions are ephemeral in-memory, never stored or used for training.
 
 ---
 
-## 🚀 How to Run
+## 🚀 API Endpoints
 
-### 1. Run the Next.js Frontend
+### 1. List Models Endpoint
+```http
+GET https://lotus-max.vercel.app/api/v1/models
+```
+
+### 2. Chat Completions Endpoint
+```http
+POST https://lotus-max.vercel.app/api/v1/chat/completions
+Content-Type: application/json
+
+{
+  "model": "lotus-ai/lotus-0.1-max",
+  "messages": [
+    {"role": "user", "content": "Explain raft consensus in 2 sentences."}
+  ],
+  "stream": true
+}
+```
+
+---
+
+## 🛠️ Local Development
+
 ```powershell
 npm run dev
-# Or production build:
+# Or build for production
 npm run build
 npx next start -p 3005
 ```
-Live at `http://localhost:3005`.
-
-### 2. Generate Synthetic Dataset
-Launch the autonomous 3-stage distillation loop using your NVIDIA NIM key:
-```powershell
-python knowledge_loop.py
-```
-This writes to `lotus_0.1_max_dataset.jsonl`.
-
-### 3. Run the OpenRouter Provider Gateway
-```powershell
-python openrouter_adapter.py
-```
-Exposes:
-- `GET  /v1/models` — Returns `lotus-ai/lotus-0.1-max`
-- `POST /v1/chat/completions` — Routes directly to NVIDIA NIM with full SSE streaming and fallback.
-
-### 4. Deploy to Vercel (`lotus-ai.vercel.app`)
-```powershell
-npx vercel --prod
-```
-Set environment variable `NVIDIA_API_KEY` on your Vercel project dashboard.
+Visit `http://localhost:3005`.

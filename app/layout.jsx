@@ -2,11 +2,11 @@ import './globals.css';
 
 export const metadata = {
   title: 'Lotus 0.1 Max — Sovereign Global Frontier Intelligence (550B)',
-  description: 'Lotus 0.1 Max delivers doctoral-level reasoning powered by NVIDIA NIM 550B & 30B infrastructure. Live on OpenRouter and hosted at lotus-max.vercel.app.',
-  keywords: ['AI model', 'Lotus 0.1 Max', 'OpenRouter', 'NVIDIA NIM', 'Lotus AI', 'Llama 3.2', 'Nemotron'],
+  description: 'Lotus 0.1 Max delivers doctoral-level reasoning powered by sovereign distributed neural infrastructure. Live on OpenRouter and hosted at lotus-max.vercel.app.',
+  keywords: ['AI model', 'Lotus 0.1 Max', 'OpenRouter', 'Lotus AI', 'Frontier Intelligence', 'Reasoning Model'],
   openGraph: {
     title: 'Lotus 0.1 Max — Sovereign Global Frontier Intelligence',
-    description: 'Doctoral-level AI reasoning model powered by NVIDIA NIM 550B & 30B infrastructure.',
+    description: 'Doctoral-level AI reasoning model powered by sovereign distributed neural infrastructure.',
     url: 'https://lotus-max.vercel.app',
     siteName: 'Lotus AI',
     type: 'website',

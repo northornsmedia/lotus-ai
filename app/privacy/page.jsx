@@ -75,7 +75,7 @@ export default function PrivacyPolicy() {
           <section>
             <h2 style={{ color: '#FFF', fontSize: '1.2rem', marginBottom: '0.5rem' }}>4. Infrastructure &amp; Security Standards</h2>
             <p>
-              Lotus 0.1 Max runs on sovereign NVIDIA enterprise computing infrastructure utilizing TensorRT-LLM and secure VPC clusters.
+              Lotus 0.1 Max runs on dedicated sovereign enterprise computing infrastructure utilizing isolated VPC clusters.
             </p>
             <ul style={{ paddingLeft: '1.5rem', marginTop: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
               <li><strong>Encryption in Transit:</strong> All HTTP and WebSocket connections enforce mandatory TLS 1.3 encryption with strict HSTS headers.</li>
