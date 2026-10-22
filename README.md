@@ -1,11 +1,13 @@
-# Lotus 0.1 Max — Sovereign Frontier AI by Lotus Labs
-
 <p align="center">
-  <img src="https://lotus-max.vercel.app/favicon.ico" width="48" height="48" alt="Lotus Labs Logo" />
+  <a href="https://lotus-max.vercel.app">
+    <img src="https://raw.githubusercontent.com/northornsmedia/lotus-ai/main/public/logo.png" width="160" height="160" alt="Lotus Labs Official Logo" />
+  </a>
 </p>
 
+<h1 align="center">Lotus 0.1 Max</h1>
+
 <p align="center">
-  <strong>Lotus 0.1 Max</strong> is a premier sovereign frontier artificial intelligence developed by <strong>Lotus Labs</strong>.<br />
+  <strong>Sovereign Frontier Artificial Intelligence by Lotus Labs</strong><br />
   Engineered for doctoral-level STEM reasoning, code architecture synthesis, and continuous 3.2M token context ingestion via an ultra-low latency, OpenAI-compatible gateway.
 </p>
 

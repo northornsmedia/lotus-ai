@@ -266,9 +266,7 @@ for chunk in stream:
       <nav className="nav-container">
         <div className="nav-bar">
           <a href="#" className="nav-brand">
-            <svg className="nav-logo-icon" viewBox="0 0 24 24">
-              <path d="M12 2L2 22h20L12 2z" />
-            </svg>
+            <img src="/logo.png" alt="Lotus Labs Logo" className="nav-logo-img" />
             <span>Lotus 0.1 Max</span>
           </a>
 
@@ -346,6 +344,10 @@ for chunk in stream:
       <main className="container">
         {/* Hero Section */}
         <section className="hero-section">
+          <div className="hero-logo-container">
+            <img src="/logo.png" alt="Lotus Labs Official Logo" className="hero-lotus-logo" />
+          </div>
+
           <div className="pill-badge">
             <span className="live-dot"></span>
             <span>Lotus 0.1 Max &bull; 3.2M Context &bull; Free Developer API</span>
@@ -492,8 +494,8 @@ for chunk in stream:
           {/* Terminal Playground Window */}
           <div className="playground-card">
             <div className="playground-topbar">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span className="live-dot"></span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                <img src="/logo.png" alt="Lotus" style={{ width: '20px', height: '20px', objectFit: 'contain', filter: 'drop-shadow(0 0 6px rgba(245, 197, 66, 0.5))' }} />
                 <span style={{ fontWeight: 600, color: '#FFF' }}>lotus-ai/lotus-0.1-max</span>
                 <span style={{ color: '#666', fontSize: '0.75rem' }}>• 3.2M Context • fp16</span>
               </div>
