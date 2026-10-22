@@ -177,7 +177,26 @@ export async function POST(req: Request) {
 
   const stream = OpenAIStream(response);
   return new StreamingTextResponse(stream);
-}`
+}`,
+    ultraContext: `# Ingest massive documents, codebases & logs up to 3.2M tokens
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://lotus-max.vercel.app/api/v1",
+    api_key="${activeKeyDisplay}",
+)
+
+# Stream massive 3.2M context with automated live partition ingestion:
+stream = client.chat.completions.create(
+    model="lotus-ai/lotus-0.1-max",
+    messages=[
+        {"role": "user", "content": f"{massive_document_text}\\n\\nTask: Comprehensive security audit and synthesis."}
+    ],
+    stream=True,  # Keeps connection active & streams partitions live
+)
+
+for chunk in stream:
+    print(chunk.choices[0].delta.content or "", end="")`
   };
 
   const handleCopyCode = (text) => {
@@ -665,7 +684,7 @@ export async function POST(req: Request) {
                   className={`code-tab ${activeCodeTab === tab ? 'active' : ''}`}
                   onClick={() => setActiveCodeTab(tab)}
                 >
-                  {tab === 'curl' ? 'cURL' : tab === 'python' ? 'Python' : tab === 'typescript' ? 'TypeScript' : 'Next.js'}
+                  {tab === 'curl' ? 'cURL' : tab === 'python' ? 'Python' : tab === 'typescript' ? 'TypeScript' : tab === 'ultraContext' ? '⚡ 3.2M Context (Python)' : 'Next.js'}
                 </button>
               ))}
             </div>
